@@ -1,0 +1,70 @@
+:root {
+    --def-color: black;
+    --def-img-size: 1.5rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.user-container > img {
+    width: 1.5rem;
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+}
+
+.board-container > .in-cont > div {
+    width: 12rem;
+    height: 12rem;
+}
+
+.board-container > .in-cont > .right-bottom {
+    border-right: 1px solid var(--def-color);
+    border-bottom: 1px solid var(--def-color);
+}
+
+.board-container > .in-cont > .bottom {
+    border-bottom: 1px solid var(--def-color);
+}
+
+.board-container > .in-cont > .right {
+    border-right: 1px solid var(--def-color);
+}
+
+.restart-container {
+    display: flex;
+    justify-content: center;
+}
+
+.user-container,
+.board-container,
+.restart-container {
+    margin: auto;
+}
