@@ -1,6 +1,10 @@
 :root {
-    --def-color: black;
-    --def-img-size: 1.5rem;
+    --body-color: #fbfbf9;
+    --border-color: #3f3f3e;
+    --btn-color: #10100F;
+    --user-color: #040404;
+    --button-bg-color: #e0e0df;
+    --border-img-size: 1.5rem;
 }
 
 *,
@@ -16,6 +20,7 @@
 html,
 body {
     height: 100%;
+    background-color: var(--body-color, white);
 }
 
 .container {
@@ -35,6 +40,10 @@ body {
     width: 1.5rem;
 }
 
+.user-container {
+    color: var(--user-color, black);
+}
+
 .board-container {
     display: flex;
     justify-content: center;
@@ -45,22 +54,30 @@ body {
     height: 12rem;
 }
 
-.board-container > .in-cont > .right-bottom {
-    border-right: 1px solid var(--def-color);
-    border-bottom: 1px solid var(--def-color);
-}
-
-.board-container > .in-cont > .bottom {
-    border-bottom: 1px solid var(--def-color);
-}
-
+.board-container > .in-cont > .right-bottom,
 .board-container > .in-cont > .right {
-    border-right: 1px solid var(--def-color);
+    border-right: 1px solid var(--border-color, black);
+}
+
+.board-container > .in-cont > .bottom,
+.board-container > .in-cont > .right-bottom {
+    border-bottom: 1px solid var(--border-color, black);
 }
 
 .restart-container {
     display: flex;
     justify-content: center;
+}
+
+.restart-container > button {
+    cursor: pointer;
+    width: 7rem;
+    height: 2rem;
+    background: none;
+    outline: none;
+    background-color: var(--button-bg-color, gray);
+    color: var(--btn-color, black);
+    border: 1px solid var(--border-color);
 }
 
 .user-container,
