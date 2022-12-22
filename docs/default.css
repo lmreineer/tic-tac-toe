@@ -66,7 +66,8 @@ body {
 }
 
 /* 'in-cont' is the container of the borders */
-.in-cont > div {
+.in-cont > div,
+.text {
     width: 12rem;
     height: 12rem;
     text-align: center;
@@ -80,7 +81,6 @@ body {
     border-top: 3px solid var(--border-color, gray);
     border-right: 3px solid var(--border-color, gray);
     border-bottom: 3px solid var(--border-color, gray);
-
 }
 
 .in-cont > .right {
@@ -129,6 +129,7 @@ body {
 }
 
 .user-container,
-.restart-container > button{
+.restart-container > button,
+.board-container{
     font-family: 'Pathway Gothic One', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
