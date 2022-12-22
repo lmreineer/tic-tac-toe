@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jquery: true,
   },
   extends: 'airbnb-base',
   overrides: [
@@ -11,6 +12,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    indent: ['error', 2],
+    indent: false,
   },
 };

@@ -45,13 +45,24 @@ body {
     width: 4rem;
 }
 
-.user-container > img:hover {
-    filter: grayscale(80%);
+.hover-image,
+.user-container:hover
+.normal-image {
+    display: none;
+}
+
+.user-container:hover
+.hover-image {
+    display: inline;
 }
 
 .board-container {
     display: flex;
     justify-content: center;
+}
+
+.board-container:hover {
+    cursor: pointer;
 }
 
 /* 'in-cont' is the container of the borders */
@@ -62,6 +73,7 @@ body {
     height: 200px;
     line-height: 200px;
     font-size: 10rem;
+    user-select: none;
 }
 
 .in-cont > .border {

@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic-tac-toe</title>
     <link rel="shortcut icon" href="./favicon/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
-    <script src="default.js"></script>
+    <link rel="stylesheet" href="default.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="marksAnimation.js" defer></script>
 </head>
 
 <body>
@@ -16,26 +17,45 @@
         <div class="user-container">
             <span>Player (X)</span>
             <span>Computer (O)</span>
-            <img src="./res/single-player.png" alt="single mode" draggable="false">
+            <img src="./res/single-player.png" alt="Singe-player" class="normal-image">
+            <img src="./res/single-player-hover.png" alt="Two-player" class="hover-image">
         </div>
 
         <div class="board-container">
             <div class="in-cont left-board-container">
-                <div class="right"></div>
-                <div class="top-right-bottom"></div>
-                <div class="right"></div>
+                <div class="right">
+                    <div class="text">.</div>
+                </div>
+                <div class="top-right-bottom">
+                    <div class="text"></div>
+                </div>
+                <div class="right">
+                    <div class="text"></div>
+                </div>
             </div>
 
             <div class="in-cont mid-board-container">
-                <div class="right"></div>
-                <div class="border"></div>
-                <div class="right"></div>
+                <div class="right">
+                    <div class="text"></div>
+                </div>
+                <div class="border">
+                    <div class="text"></div>
+                </div>
+                <div class="right">
+                    <div class="text"></div>
+                </div>
             </div>
 
             <div class="in-cont right-board-container">
-                <div class="add-on"></div>
-                <div class="top-bottom"></div>
-                <div class="top"></div>
+                <div class="add-on">
+                    <div class="text"></div>
+                </div>
+                <div class="top-bottom">
+                    <div class="text"></div>
+                </div>
+                <div class="top">
+                    <div class="text"></div>
+                </div>
             </div>
         </div>
 
