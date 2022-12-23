@@ -9,14 +9,14 @@
     <link rel="shortcut icon" href="./favicon/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="default.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="marksAnimation.js" defer></script>
+    <script src="main.js" defer></script>
 </head>
 
 <body>
     <div class="container">
         <div class="user-container">
-            <span>Player (X)</span>
-            <span>Computer (O)</span>
+            <p class="user-text">Player (<span>X</span>)</p>
+            <p class="user-text">Computer (<span>O</span>)</p>
             <img src="./res/single-player.png" alt="Singe-player" class="normal-image">
             <img src="./res/single-player-hover.png" alt="Two-player" class="hover-image">
         </div>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="restart-container">
-            <button>Restart</button>
+            <button class="restart-button">Restart</button>
         </div>
     </div>
 </body>

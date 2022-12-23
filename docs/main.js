@@ -1,13 +1,7 @@
+const upperTexts = document.querySelectorAll('.para');
+const restartButton = document.querySelector('.restart');
+
 const allBoxes = document.querySelectorAll('.text');
-const upLeftBox = document.querySelector('.up-left');
-const upMidBox = document.querySelector('.up-mid');
-const upRightBox = document.querySelector('.up-right');
-const midLeftBox = document.querySelector('.mid-left');
-const centerBox = document.querySelector('.center');
-const midRightBox = document.querySelector('.mid-right');
-const botLeftBox = document.querySelector('.bot-left');
-const botMidBox = document.querySelector('.bot-mid');
-const botRightBox = document.querySelector('.bot-right');
 
 let functionIsRunning = false;
 

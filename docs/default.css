@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Pathway+Gothic+One&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Kodchasan:wght@200;400&display=swap');
+
 :root {
     --body-color: #fbfbf9;
     --border-color: #3f3f3e;
     --btn-color: #10100F;
     --user-color: #040404;
     --button-bg-color: #e0e0df;
+    --button-txt-shadow-color: #545454;
     --border-img-size: 1.5rem;
 }
 
@@ -39,6 +42,7 @@ body {
     color: var(--user-color, black);
     gap: 1rem;
     cursor: pointer;
+    user-select: none;
 }
 
 .user-container > img {
@@ -59,6 +63,16 @@ body {
 .board-container {
     display: flex;
     justify-content: center;
+    font-weight: 200;
+}
+
+.board-container,
+span {
+    font-family: 'Kodchasan', sans-serif;
+}
+
+span {
+    font-weight: 400;
 }
 
 .board-container:hover {
@@ -112,8 +126,10 @@ body {
     outline: none;
     background-color: var(--button-bg-color, gray);
     color: var(--btn-color, black);
-    border-radius: 0.5rem;
     font-size: 2rem;
+    text-shadow: 0 1px 1px var(--button-txt-shadow-color, darkgray);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 1px 0.5px var(--button-txt-shadow-color, darkgray);
 }
 
 .restart-container > button:active {
@@ -129,7 +145,11 @@ body {
 }
 
 .user-container,
-.restart-container > button,
-.board-container{
+.restart-container > button {
     font-family: 'Pathway Gothic One', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-text,
+.restart-button {
+    text-transform: uppercase;
 }
