@@ -5,42 +5,34 @@ let functionIsRunning = false;
 
 allBoxes.forEach((box) => {
   box.addEventListener('click', () => {
-    getPlayerChoice(box);
+    getPlayerChoice(box, getComputerChoice())
   })
 })
 
-// after click, function getComputerChoice
-
 function getPlayerChoice(box) {
-  box.innerHTML = 'X';
-}
-
-// function randomBox(random) {
-  // random = boxArray[Math.floor(Math.random() * boxArray.length)];
-  
-// }
-
-function getComputerChoice(box) {
-  let emptyBox = [...allBoxes].filter(box => box.innerHTML.includes('X') === false);
-  if (emptyBox.length > 0) {
-    random = allBoxes[Math.floor(Math.random() * emptyBox.length)];
-    if (!box.innerHTML.includes('X')) {
-      if (!box.innerHTML.includes('O')) {
-        random.innerHTML = 'O';
-      }
+  if (!box.innerHTML.includes('X')) {
+    if (!box.innerHTML.includes('O')) {
+      box.innerHTML = 'X';
     }
   }
 }
 
-// function clickFunction(box) {
-//   if (!functionIsRunning) {
-//     getPlayerChoice(box);
-//     functionIsRunning = true;
-//   } else {
-//     functionIsRunning = false;
-//     getComputerChoice(box);
-//   }
-// }
+// non-functioning bug
+// this function knows specific boxes
+// if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
+function getComputerChoice() {
+  setTimeout(() => {
+    let emptyBox = [...allBoxes].filter(box => !box.innerHTML.includes('X'));
+    if (emptyBox.length > 0) {
+      random = allBoxes[Math.floor(Math.random() * emptyBox.length)];
+      if (!random.innerHTML.includes('O')) {
+        if (!random.innerHTML.includes('X')) {
+          console.log(random)
+        }
+      }
+    }
+  }, 500)
+}
 
 // function firstPlayer(e, box) {
 //   if (!box.innerHTML.includes('X')) {
@@ -55,6 +47,16 @@ function getComputerChoice(box) {
 //     if (!box.innerHTML.includes('X')) {
 //       e.target.innerHTML = 'O';
 //     }
+//   }
+// }
+
+// function clickFunction(e, box) {
+//   if (!functionIsRunning) {
+//     firstPlayer(e, box);
+//     functionIsRunning = true;
+//   } else {
+//     functionIsRunning = false;
+//     secondPlayer(e, box);
 //   }
 // }
 
