@@ -54,6 +54,7 @@ function markO() {
       allBoxes[i].classList.replace('oActive', 'text');
     }
     clickedBox.classList.replace('text', 'oActive');
+
     animateO();
   }, 500);
 }
@@ -85,7 +86,8 @@ allBoxes.forEach((btnClickEvent, _, buttons) => {
   });
 
   btnClickEvent.addEventListener('click', () => {
-    if (!btnClickEvent.innerHTML.includes('X')) {
+    if (!btnClickEvent.innerHTML.includes('X')
+    && !btnClickEvent.innerHTML.includes('O')) {
       animateX();
     }
   });
@@ -137,5 +139,6 @@ const restartButton = document.querySelector('.restart-button');
 restartButton.addEventListener('click', () => {
   allBoxes.forEach((box) => {
     box.innerHTML = '';
+    box.classList.replace('oActive', 'text');
   });
 });
