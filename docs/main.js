@@ -36,6 +36,7 @@ userContainer.addEventListener('click', () => {
     userContainer.childNodes[3].innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)';
     userComputer.style.transition = '0.2s';
     userComputer.style.opacity = '1';
+    userPlayer.style.opacity = '1';
     twoPlayerMode = false;
   }
 });
@@ -98,10 +99,9 @@ function markO() {
     // toggle 'oComputer' class
     const clickedBox = randomBox;
     for (let i = 0; i < allBoxes.length; i++) {
-      allBoxes[i].classList.replace('oActive', 'text');
+      allBoxes[i].classList.replace('oActive', 'comp');
     }
-    clickedBox.classList.replace('text', 'oActive');
-
+    clickedBox.classList.replace('comp', 'oActive');
     animateO();
   }, 500);
 }
@@ -150,39 +150,61 @@ function checkWhosWinner() {
 
 // single mode
 function firstPlayer(e) {
-  allBoxes.forEach((box) => {
+  allBoxes.forEach(() => {
     if (!e.target.innerHTML.includes('X')
-    && !e.target.innerHTML.includes('O')) {
+    || !e.target.innerHTML.includes('O')) {
       e.target.innerHTML = 'X';
     }
   });
 }
 
 function secondPlayer(e) {
-  allBoxes.forEach((box) => {
+  allBoxes.forEach(() => {
     if (!e.target.innerHTML.includes('X')
-    && !e.target.innerHTML.includes('O')) {
+    || !e.target.innerHTML.includes('O')) {
       e.target.innerHTML = 'O';
     }
   });
 }
 
-let functionIsRunning = false;
+// switch turns
+let turn = false;
 
-function clickFunction(e) {
-  if (functionIsRunning === false) {
-    firstPlayer(e);
-    userPlayer.style.opacity = '0.4';
-    userComputer.style.transition = '0.5s';
-    userComputer.style.opacity = '1';
-    functionIsRunning = true;
-  } else if (functionIsRunning === true) {
-    secondPlayer(e);
-    userComputer.style.opacity = '0.4';
-    userPlayer.style.transition = '0.5s';
-    userPlayer.style.opacity = '1';
-    functionIsRunning = false;
-  }
+function turnFunction(e) {
+  allBoxes.forEach(() => {
+    if (turn === false
+      && !e.target.innerHTML.includes('O')
+      && !e.target.innerHTML.includes('X')) {
+        firstPlayer(e);
+        userPlayer.style.opacity = '0.4';
+        userComputer.style.transition = '0.5s';
+        userComputer.style.opacity = '1';
+        turn = true;
+    } else if (turn === true
+      && !e.target.innerHTML.includes('X')
+      && !e.target.innerHTML.includes('O')) {
+      secondPlayer(e);
+      userComputer.style.opacity = '0.4';
+      userPlayer.style.transition = '0.5s';
+      userPlayer.style.opacity = '1';
+      turn = false;
+    }
+
+    // restart back to player one if you click userContainer or restartButton
+    restartButton.addEventListener('click', () => {
+      userComputer.style.opacity = '0.4';
+      userPlayer.style.transition = '0.5s';
+      userPlayer.style.opacity = '1';
+      turn = false;
+    });
+
+    userComputer.addEventListener('click', () => {
+      userComputer.style.opacity = '0.4';
+      userPlayer.style.transition = '0.5s';
+      userPlayer.style.opacity = '1';
+      turn = false;
+    })
+  });
 }
 
 // avoid continuous click from X
@@ -207,7 +229,7 @@ allBoxes.forEach((box) => {
         }, 600);
       }
     } else if (twoPlayerMode === true) {
-      clickFunction(e);
+      turnFunction(e);
     }
   });
 
@@ -216,8 +238,9 @@ allBoxes.forEach((box) => {
   });
 });
 
-restartButton.addEventListener('click', () => {
+restartButton.addEventListener('click', (e) => {
   allBoxes.forEach((box) => {
     box.innerHTML = '';
+
   });
 });
