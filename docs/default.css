@@ -67,11 +67,13 @@ body {
 }
 
 .board-container,
-span {
+.span-player,
+.span-computer {
     font-family: 'Kodchasan', sans-serif;
 }
 
-span {
+.span-player,
+.span-computer {
     font-weight: 400;
 }
 

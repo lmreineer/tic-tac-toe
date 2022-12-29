@@ -1,3 +1,27 @@
+const userContainer = document.querySelector('.user-container');
+const userComputer = document.querySelector('.user-computer');
+const spanComputer = document.querySelector('.span-computer');
+const normalImage = document.querySelector('.normal-image');
+const hoverImage = document.querySelector('.hover-image');
+
+let twoPlayerMode = false;
+
+userContainer.addEventListener('click', () => {
+  if (twoPlayerMode === false) {
+    normalImage.src = './res/two-player.png';
+    hoverImage.src = './res/two-player-hover.png';
+    userContainer.childNodes[1].innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)'
+    userContainer.childNodes[3].innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)'
+    twoPlayerMode = true;
+  } else if (twoPlayerMode === true) {
+    normalImage.src = './res/single-player.png';
+    hoverImage.src = './res/single-player-hover.png';
+    userContainer.childNodes[1].innerHTML = 'Player &nbsp(<span class="span-player">X</span>)'
+    userContainer.childNodes[3].innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)'
+    twoPlayerMode = false;
+  }
+});
+
 const allBoxes = document.querySelectorAll('.text');
 const upLeftBox = document.querySelector('.up-left');
 const upMidBox = document.querySelector('.up-mid');
@@ -9,22 +33,6 @@ const bottomLeftBox = document.querySelector('.bot-left');
 const bottomMidBox = document.querySelector('.bot-mid');
 const bottomRightBox = document.querySelector('.bot-right');
 
-// non-functioning bug
-// this function knows specific boxes
-// if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
-// i put a 'box' parameter here for a reason
-// manually do it?
-
-// after an hour, i'm trying to manually do it
-// i'm fixing an issue about a random.innerHTML that doesn't register at times
-
-// still not functioning at times.
-// add playerpick and computerpick
-
-// computer actually looks like it's trying to win sometimes.
-
-// issue, not animating unless you double click it, also take note of higher chances of computer picking a box
-
 function animateO() {
   anime({
     targets: '.oActive',
@@ -34,13 +42,7 @@ function animateO() {
   });
 }
 
-function markX(box) {
-  if (!box.innerHTML.includes('X')
-  && !box.innerHTML.includes('O')) {
-    box.innerHTML = 'X';
-    markO();
-  }
-}
+// if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
 
 function markO() {
   setTimeout(() => {
@@ -48,7 +50,7 @@ function markO() {
     const randomBox = rando(restAllBoxes).value;
     randomBox.innerHTML = 'O';
 
-    // different function but the same purpose as xActive, this instead replaces 'text' class
+    // toggle 'oComputer' class
     const clickedBox = randomBox;
     for (let i = 0; i < allBoxes.length; i++) {
       allBoxes[i].classList.replace('oActive', 'text');
@@ -59,14 +61,13 @@ function markO() {
   }, 500);
 }
 
-// function markX(box) {
-//   if (!box.innerHTML.includes('X')) {
-//     if (!box.innerHTML.includes('O')) {
-//       box.innerHTML = 'X';
-//       markO(box);
-//     }
-//   }
-// }
+function markX(box) {
+  if (!box.innerHTML.includes('X')
+  && !box.innerHTML.includes('O')) {
+    box.innerHTML = 'X';
+    markO();
+  }
+}
 
 function animateX() {
   anime({
@@ -77,7 +78,7 @@ function animateX() {
   });
 }
 
-// to add class to clicked box then remove the previous box's class to add to new box if new is clicked
+// toggle 'xActive' class, same purpose as 'oComputer' class, only functions are different
 allBoxes.forEach((btnClickEvent, _, buttons) => {
   btnClickEvent.addEventListener('click', () => {
     buttons.forEach((bt) => {
@@ -101,35 +102,51 @@ function checkWhosWinner() {
   }
 }
 
-// function firstPlayer(e, box) {
-//   if (!box.innerHTML.includes('X')) {
-//     if (!box.innerHTML.includes('O')) {
-//       e.target.innerHTML = 'X';
-//     }
-//   }
-// }
+// single mode
+function firstPlayer(e, box) {
+  if (!box.innerHTML.includes('X')) {
+    if (!box.innerHTML.includes('O')) {
+      e.target.innerHTML = 'X';
+    }
+  }
+}
 
-// function secondPlayer(e, box) {
-//   if (!box.innerHTML.includes('O')) {
-//     if (!box.innerHTML.includes('X')) {
-//       e.target.innerHTML = 'O';
-//     }
-//   }
-// }
+function secondPlayer(e, box) {
+  if (!box.innerHTML.includes('O')) {
+    if (!box.innerHTML.includes('X')) {
+      e.target.innerHTML = 'O';
+    }
+  }
+}
 
-// function clickFunction(e, box) {
-//   if (!functionIsRunning) {
-//     firstPlayer(e, box);
-//     functionIsRunning = true;
-//   } else {
-//     functionIsRunning = false;
-//     secondPlayer(e, box);
-//   }
-// }
+let functionIsRunning = false;
+
+function clickFunction(e, box) {
+  if (!functionIsRunning) {
+    firstPlayer(e, box);
+    functionIsRunning = true;
+  } else {
+    functionIsRunning = false;
+    secondPlayer(e, box);
+  }
+}
+
+// avoid continuous click from X
+let boxDisabled = false;
 
 allBoxes.forEach((box) => {
   box.addEventListener('click', () => {
-    markX(box);
+    if (boxDisabled === false) {
+      boxDisabled = true;
+      markX(box);
+      setTimeout(() => {
+        boxDisabled = false;
+        markX(box);
+      }, 600);
+    }
+  });
+
+  box.addEventListener('click', () => {
     checkWhosWinner();
   });
 });
@@ -139,6 +156,5 @@ const restartButton = document.querySelector('.restart-button');
 restartButton.addEventListener('click', () => {
   allBoxes.forEach((box) => {
     box.innerHTML = '';
-    box.classList.replace('oActive', 'text');
   });
 });
