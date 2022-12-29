@@ -11,6 +11,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    // toggle linting
     indent: false,
   },
 };

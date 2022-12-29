@@ -1,8 +1,22 @@
+// note:
+// if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
+
 const userContainer = document.querySelector('.user-container');
+const userPlayer = document.querySelector('.user-player');
 const userComputer = document.querySelector('.user-computer');
 const spanComputer = document.querySelector('.span-computer');
 const normalImage = document.querySelector('.normal-image');
 const hoverImage = document.querySelector('.hover-image');
+const allBoxes = document.querySelectorAll('.text');
+
+hoverImage.addEventListener('mouseover', () => {
+  hoverImage.style.transition = '0.3s';
+  hoverImage.style.opacity = '0.8';
+});
+
+hoverImage.addEventListener('mouseout', () => {
+  hoverImage.style.opacity = '1';
+});
 
 let twoPlayerMode = false;
 
@@ -10,19 +24,36 @@ userContainer.addEventListener('click', () => {
   if (twoPlayerMode === false) {
     normalImage.src = './res/two-player.png';
     hoverImage.src = './res/two-player-hover.png';
-    userContainer.childNodes[1].innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)'
-    userContainer.childNodes[3].innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)'
+    userContainer.childNodes[1].innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)';
+    userContainer.childNodes[3].innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)';
+    userComputer.style.transition = '0.2s';
+    userComputer.style.opacity = '0.5';
     twoPlayerMode = true;
   } else if (twoPlayerMode === true) {
     normalImage.src = './res/single-player.png';
     hoverImage.src = './res/single-player-hover.png';
-    userContainer.childNodes[1].innerHTML = 'Player &nbsp(<span class="span-player">X</span>)'
-    userContainer.childNodes[3].innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)'
+    userContainer.childNodes[1].innerHTML = 'Player &nbsp(<span class="span-player">X</span>)';
+    userContainer.childNodes[3].innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)';
+    userComputer.style.transition = '0.2s';
+    userComputer.style.opacity = '1';
     twoPlayerMode = false;
   }
 });
 
-const allBoxes = document.querySelectorAll('.text');
+let restartClicked = false;
+
+userContainer.addEventListener('click', () => {
+  allBoxes.forEach((box) => {
+    box.innerHTML = '';
+  });
+
+  if (restartClicked === false) {
+    restartClicked = true;
+  } else if (restartClicked === true) {
+    restartClicked = false;
+  }
+});
+
 const upLeftBox = document.querySelector('.up-left');
 const upMidBox = document.querySelector('.up-mid');
 const upRightBox = document.querySelector('.up-right');
@@ -42,15 +73,11 @@ function animateO() {
   });
 }
 
-// if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
-
 const restartButton = document.querySelector('.restart-button');
-
-let restartClicked = false;
 
 restartButton.addEventListener('click', () => {
   if (restartClicked === false) {
-      restartClicked = true;
+    restartClicked = true;
   } else if (restartClicked === true) {
     restartClicked = false;
   }
@@ -65,7 +92,7 @@ function markO() {
     } else if (restartClicked === true) {
       allBoxes.forEach((box) => {
         box.innerHTML = '';
-      })
+      });
     }
 
     // toggle 'oComputer' class
@@ -89,18 +116,19 @@ function markX(box) {
 
 function animateX() {
   anime({
-    targets: '.xActive',
+    targets: '.active',
     scale: [1.2, 1],
     easing: 'easeOutCirc',
     duration: 200,
   });
 }
 
-// toggle 'xActive' class, same purpose as 'oComputer' class, only functions are different
+// toggle 'active' class, used for both game mode
+// same purpose as 'oComputer' class, only functions are different
 allBoxes.forEach((btnClickEvent, _, buttons) => {
   btnClickEvent.addEventListener('click', () => {
     buttons.forEach((bt) => {
-      bt.classList.toggle('xActive', bt === btnClickEvent);
+      bt.classList.toggle('active', bt === btnClickEvent);
     });
   });
 
@@ -121,54 +149,65 @@ function checkWhosWinner() {
 }
 
 // single mode
-function firstPlayer(e, box) {
-  if (!box.innerHTML.includes('X')) {
-    if (!box.innerHTML.includes('O')) {
+function firstPlayer(e) {
+  allBoxes.forEach((box) => {
+    if (!e.target.innerHTML.includes('X')
+    && !e.target.innerHTML.includes('O')) {
       e.target.innerHTML = 'X';
     }
-  }
+  });
 }
 
-function secondPlayer(e, box) {
-  if (!box.innerHTML.includes('O')) {
-    if (!box.innerHTML.includes('X')) {
+function secondPlayer(e) {
+  allBoxes.forEach((box) => {
+    if (!e.target.innerHTML.includes('X')
+    && !e.target.innerHTML.includes('O')) {
       e.target.innerHTML = 'O';
     }
-  }
+  });
 }
 
 let functionIsRunning = false;
 
-function clickFunction(e, box) {
-  if (!functionIsRunning) {
-    firstPlayer(e, box);
+function clickFunction(e) {
+  if (functionIsRunning === false) {
+    firstPlayer(e);
+    userPlayer.style.opacity = '0.4';
+    userComputer.style.transition = '0.5s';
+    userComputer.style.opacity = '1';
     functionIsRunning = true;
-  } else {
+  } else if (functionIsRunning === true) {
+    secondPlayer(e);
+    userComputer.style.opacity = '0.4';
+    userPlayer.style.transition = '0.5s';
+    userPlayer.style.opacity = '1';
     functionIsRunning = false;
-    secondPlayer(e, box);
   }
 }
 
 // avoid continuous click from X
-
 let boxDisabled = false;
 
 allBoxes.forEach((box) => {
-  box.addEventListener('click', () => {
-    restartClicked = false;
-    if (boxDisabled === false) {
-      boxDisabled = true;
-      markX(box);
-      setTimeout(() => {
-        boxDisabled = false;
-        if (restartClicked === false) {
-          markX(box);
-        } else if (restartClicked === true) {
-          allBoxes.forEach((box) => {
-            box.innerHTML = '';
-          })
-        }
-      }, 600);
+  box.addEventListener('click', (e) => {
+    if (twoPlayerMode === false) {
+      restartClicked = false;
+      if (boxDisabled === false) {
+        boxDisabled = true;
+        markX(box);
+        setTimeout(() => {
+          boxDisabled = false;
+          if (restartClicked === false) {
+            markX(box);
+          } else if (restartClicked === true) {
+            allBoxes.forEach((box) => {
+              box.innerHTML = '';
+            });
+          }
+        }, 600);
+      }
+    } else if (twoPlayerMode === true) {
+      clickFunction(e);
     }
   });
 
