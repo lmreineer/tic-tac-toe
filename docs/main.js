@@ -44,11 +44,29 @@ function animateO() {
 
 // if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
 
+const restartButton = document.querySelector('.restart-button');
+
+let restartClicked = false;
+
+restartButton.addEventListener('click', () => {
+  if (restartClicked === false) {
+      restartClicked = true;
+  } else if (restartClicked === true) {
+    restartClicked = false;
+  }
+});
+
 function markO() {
   setTimeout(() => {
     const restAllBoxes = [...allBoxes].filter((box) => !box.innerHTML.includes('X') && !box.innerHTML.includes('O'));
     const randomBox = rando(restAllBoxes).value;
-    randomBox.innerHTML = 'O';
+    if (restartClicked === false) {
+      randomBox.innerHTML = 'O';
+    } else if (restartClicked === true) {
+      allBoxes.forEach((box) => {
+        box.innerHTML = '';
+      })
+    }
 
     // toggle 'oComputer' class
     const clickedBox = randomBox;
@@ -132,16 +150,24 @@ function clickFunction(e, box) {
 }
 
 // avoid continuous click from X
+
 let boxDisabled = false;
 
 allBoxes.forEach((box) => {
   box.addEventListener('click', () => {
+    restartClicked = false;
     if (boxDisabled === false) {
       boxDisabled = true;
       markX(box);
       setTimeout(() => {
         boxDisabled = false;
-        markX(box);
+        if (restartClicked === false) {
+          markX(box);
+        } else if (restartClicked === true) {
+          allBoxes.forEach((box) => {
+            box.innerHTML = '';
+          })
+        }
       }, 600);
     }
   });
@@ -150,8 +176,6 @@ allBoxes.forEach((box) => {
     checkWhosWinner();
   });
 });
-
-const restartButton = document.querySelector('.restart-button');
 
 restartButton.addEventListener('click', () => {
   allBoxes.forEach((box) => {
