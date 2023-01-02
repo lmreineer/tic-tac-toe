@@ -84,11 +84,15 @@ restartButton.addEventListener('click', () => {
   }
 });
 
+// avoids continuous click from X
+let boxDisabled = false;
+
 function markO() {
   setTimeout(() => {
     const restAllBoxes = [...allBoxes].filter((box) => !box.innerHTML.includes('X') && !box.innerHTML.includes('O'));
     const randomBox = rando(restAllBoxes).value;
-    if (restartClicked === false) {
+    if (restartClicked === false
+      && boxDisabled === false) {
       randomBox.innerHTML = 'O';
     } else if (restartClicked === true) {
       allBoxes.forEach((box) => {
@@ -159,45 +163,6 @@ function secondPlayer(e) {
   });
 }
 
-// switch turns
-let turn = false;
-
-function turnFunction(e) {
-  allBoxes.forEach(() => {
-    if (turn === false
-      && !e.target.innerHTML.includes('O')
-      && !e.target.innerHTML.includes('X')) {
-        firstPlayer(e);
-        userPlayer.style.opacity = '0.4';
-        userComputer.style.transition = '0.5s';
-        userComputer.style.opacity = '1';
-        turn = true;
-    } else if (turn === true
-      && !e.target.innerHTML.includes('X')
-      && !e.target.innerHTML.includes('O')) {
-      secondPlayer(e);
-      userComputer.style.opacity = '0.4';
-      userPlayer.style.transition = '0.5s';
-      userPlayer.style.opacity = '1';
-      turn = false;
-    }
-
-    // restart back to player one if you click userContainer or restartButton
-    restartButton.addEventListener('click', () => {
-      userComputer.style.opacity = '0.4';
-      userPlayer.style.transition = '0.5s';
-      userPlayer.style.opacity = '1';
-      turn = false;
-    });
-
-    userComputer.addEventListener('click', () => {
-      userComputer.style.opacity = '0.4';
-      userPlayer.style.transition = '0.5s';
-      userPlayer.style.opacity = '1';
-      turn = false;
-    })
-  });
-}
 
 function checkWhosWinner() {
   if (upLeftBox.innerHTML.includes('X')
@@ -211,43 +176,49 @@ function checkWhosWinner() {
       centerBox.classList.remove('blink');
       bottomRightBox.classList.remove('blink');
     }, 3100);
+  } else if (upLeftBox.innerHTML.includes('X')
+  && upMidBox.innerHTML.includes('X')
+  && upRightBox.innerHTML.includes('X')) {
+    upLeftBox.classList.add('blink');
+    upMidBox.classList.add('blink');
+    upRightBox.classList.add('blink');
+    boxDisabled = true;
+    setTimeout(() => {
+      upLeftBox.classList.remove('blink');
+      upMidBox.classList.remove('blink');
+      upRightBox.classList.remove('blink');
+    }, 3100);
   }
 }
 
-// avoid continuous click from X
-let boxDisabled = false;
+// conditions the markX and restart button
+function markXandRestart(box) {
+  if (twoPlayerMode === false) {
+    restartClicked = false;
+    if (boxDisabled === false) {
+      markX(box);
+      setTimeout(() => {
+        if (restartClicked === false) {
+          markX(box);
+        } else if (restartClicked === true) {
+          allBoxes.forEach((box) => {
+            box.innerHTML = '';
+          });
+        }
+      }, 600);
+    }
+  }
+}
 
 allBoxes.forEach((box) => {
-  box.addEventListener('click', (e) => {
-    if (twoPlayerMode === false) {
-      restartClicked = false;
-      if (boxDisabled === false) {
-        boxDisabled = true;
-        markX(box);
-        setTimeout(() => {
-          boxDisabled = false;
-          if (restartClicked === false) {
-            markX(box);
-          } else if (restartClicked === true) {
-            allBoxes.forEach((box) => {
-              box.innerHTML = '';
-            });
-          }
-        }, 600);
-      }
-    } else if (twoPlayerMode === true) {
-      turnFunction(e);
-    }
-  });
-
   box.addEventListener('click', () => {
+    markXandRestart(box);
     checkWhosWinner();
   });
 });
 
-restartButton.addEventListener('click', (e) => {
+restartButton.addEventListener('click', () => {
   allBoxes.forEach((box) => {
     box.innerHTML = '';
-
   });
 });
