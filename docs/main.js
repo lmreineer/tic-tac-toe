@@ -140,14 +140,6 @@ allBoxes.forEach((btnClickEvent, _, buttons) => {
   });
 });
 
-function checkWhosWinner() {
-  if (bottomRightBox.innerHTML.includes('X')
-  && bottomMidBox.innerHTML.includes('X')
-  && bottomLeftBox.innerHTML.includes('X')) {
-    centerBox.innerHTML = 'X win';
-  }
-}
-
 // single mode
 function firstPlayer(e) {
   allBoxes.forEach(() => {
@@ -205,6 +197,21 @@ function turnFunction(e) {
       turn = false;
     })
   });
+}
+
+function checkWhosWinner() {
+  if (upLeftBox.innerHTML.includes('X')
+  && centerBox.innerHTML.includes('X')
+  && bottomRightBox.innerHTML.includes('X')) {
+    upLeftBox.classList.add('blink');
+    centerBox.classList.add('blink');
+    bottomRightBox.classList.add('blink');
+    setTimeout(() => {
+      upLeftBox.classList.remove('blink');
+      centerBox.classList.remove('blink');
+      bottomRightBox.classList.remove('blink');
+    }, 3100);
+  }
 }
 
 // avoid continuous click from X
