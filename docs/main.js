@@ -84,15 +84,14 @@ restartButton.addEventListener('click', () => {
   }
 });
 
-// avoids continuous click from X
-let boxDisabled = false;
+let stopMarks = false;
 
 function markO() {
   setTimeout(() => {
     const restAllBoxes = [...allBoxes].filter((box) => !box.innerHTML.includes('X') && !box.innerHTML.includes('O'));
     const randomBox = rando(restAllBoxes).value;
     if (restartClicked === false
-      && boxDisabled === false) {
+      && stopMarks === false) {
       randomBox.innerHTML = 'O';
     } else if (restartClicked === true) {
       allBoxes.forEach((box) => {
@@ -116,6 +115,34 @@ function markX(box) {
     box.innerHTML = 'X';
     markO();
   }
+}
+
+function checkWinner() {
+  allBoxes.forEach((box) => {
+    if (!box.classList.contains('blink')) {
+      if ((bottomRightBox.innerHTML.includes('O'))
+      && (bottomMidBox.innerHTML.includes('O'))
+      && (bottomLeftBox.innerHTML.includes('O'))
+      || (bottomRightBox.innerHTML.includes('X'))
+      && (bottomMidBox.innerHTML.includes('X'))
+      && (bottomLeftBox.innerHTML.includes('X'))) {
+        bottomRightBox.classList.add('blink');
+        bottomMidBox.classList.add('blink');
+        bottomLeftBox.classList.add('blink');
+        stopMarks = true;
+      }
+    } else if (box.classList.contains('blink')) {
+      if (stopMarks === true) {
+        setTimeout(() => {
+          allBoxes.forEach((box) => {
+            box.classList.remove('blink');
+            box.innerHTML = '';
+            stopMarks = false;
+          });
+        }, 3100);
+      }
+    }
+  });
 }
 
 function animateX() {
@@ -163,57 +190,40 @@ function secondPlayer(e) {
   });
 }
 
+let boxDisabled = false;
 
-function checkWhosWinner() {
-  if (upLeftBox.innerHTML.includes('X')
-  && centerBox.innerHTML.includes('X')
-  && bottomRightBox.innerHTML.includes('X')) {
-    upLeftBox.classList.add('blink');
-    centerBox.classList.add('blink');
-    bottomRightBox.classList.add('blink');
-    setTimeout(() => {
-      upLeftBox.classList.remove('blink');
-      centerBox.classList.remove('blink');
-      bottomRightBox.classList.remove('blink');
-    }, 3100);
-  } else if (upLeftBox.innerHTML.includes('X')
-  && upMidBox.innerHTML.includes('X')
-  && upRightBox.innerHTML.includes('X')) {
-    upLeftBox.classList.add('blink');
-    upMidBox.classList.add('blink');
-    upRightBox.classList.add('blink');
-    boxDisabled = true;
-    setTimeout(() => {
-      upLeftBox.classList.remove('blink');
-      upMidBox.classList.remove('blink');
-      upRightBox.classList.remove('blink');
-    }, 3100);
-  }
-}
-
-// conditions the markX and restart button
-function markXandRestart(box) {
+function conditionMarkX(box) {
   if (twoPlayerMode === false) {
     restartClicked = false;
-    if (boxDisabled === false) {
+    if (boxDisabled === false
+      && stopMarks === false) {
       markX(box);
+      checkWinner();
+      boxDisabled = true;
+    } if (boxDisabled === true
+      && stopMarks === false
+      && restartClicked === false) {
       setTimeout(() => {
-        if (restartClicked === false) {
-          markX(box);
-        } else if (restartClicked === true) {
-          allBoxes.forEach((box) => {
-            box.innerHTML = '';
-          });
-        }
+        markX(box);
+        checkWinner();
+        boxDisabled = false;
       }, 600);
     }
   }
 }
 
+function conditionRestart() {
+  if (restartClicked === true) {
+    allBoxes.forEach((box) => {
+      box.innerHTML = '';
+    });
+  }
+}
+
 allBoxes.forEach((box) => {
   box.addEventListener('click', () => {
-    markXandRestart(box);
-    checkWhosWinner();
+    conditionMarkX(box);
+    conditionRestart();
   });
 });
 
