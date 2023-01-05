@@ -10,7 +10,7 @@ const hoverImage = document.querySelector('.hover-image');
 const allBoxes = document.querySelectorAll('.text');
 
 hoverImage.addEventListener('mouseover', () => {
-  hoverImage.style.transition = '0.3s';
+  hoverImage.style.transition = '0.15s';
   hoverImage.style.opacity = '0.8';
 });
 
@@ -161,7 +161,7 @@ function animateX() {
 }
 
 // toggle 'active' class, used for both game mode
-// same purpose as 'oComputer' class, only functions are different
+// same purpose as 'oComputer' class
 allBoxes.forEach((btnClickEvent, _, buttons) => {
   btnClickEvent.addEventListener('click', () => {
     buttons.forEach((bt) => {
@@ -218,7 +218,6 @@ function turnFunction(e) {
       firstTurn = false;
     }
 
-    // restart back to player one if you click userContainer or restartButton
     restartButton.addEventListener('click', () => {
       userComputer.style.opacity = '0.4';
       userPlayer.style.transition = '0.5s';
