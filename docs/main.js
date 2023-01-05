@@ -129,18 +129,24 @@ function checkWinner() {
         bottomRightBox.classList.add('blink');
         bottomMidBox.classList.add('blink');
         bottomLeftBox.classList.add('blink');
-        stopMarks = true;
       }
-    } else if (box.classList.contains('blink')) {
-      if (stopMarks === true) {
-        setTimeout(() => {
-          allBoxes.forEach((box) => {
-            box.classList.remove('blink');
-            box.innerHTML = '';
-            stopMarks = false;
-          });
-        }, 3100);
-      }
+    }
+
+    if (box.classList.contains('blink')) {
+      stopMarks = true;
+    } else if (stopMarks === true) {
+      setTimeout(() => {
+        allBoxes.forEach((box) => {
+          // avoids contradicting with restart click
+          if (box.classList.contains('blink')) {
+            allBoxes.forEach((box) => {
+              box.innerHTML = '';
+            });
+          }
+          box.classList.remove('blink');
+          stopMarks = false;
+        });
+      }, 3000);
     }
   });
 }
@@ -190,45 +196,81 @@ function secondPlayer(e) {
   });
 }
 
+let firstTurn = false;
+
+function turnFunction(e) {
+  allBoxes.forEach(() => {
+    if (firstTurn === false
+      && !e.target.innerHTML.includes('O')
+      && !e.target.innerHTML.includes('X')) {
+      firstPlayer(e);
+      userPlayer.style.opacity = '0.4';
+      userComputer.style.transition = '0.5s';
+      userComputer.style.opacity = '1';
+      firstTurn = true;
+    } else if (firstTurn === true
+      && !e.target.innerHTML.includes('X')
+      && !e.target.innerHTML.includes('O')) {
+      secondPlayer(e);
+      userComputer.style.opacity = '0.4';
+      userPlayer.style.transition = '0.5s';
+      userPlayer.style.opacity = '1';
+      firstTurn = false;
+    }
+
+    // restart back to player one if you click userContainer or restartButton
+    restartButton.addEventListener('click', () => {
+      userComputer.style.opacity = '0.4';
+      userPlayer.style.transition = '0.5s';
+      userPlayer.style.opacity = '1';
+      firstTurn = false;
+    });
+
+    userComputer.addEventListener('click', () => {
+      userComputer.style.opacity = '0.4';
+      userPlayer.style.transition = '0.5s';
+      userPlayer.style.opacity = '1';
+      firstTurn = false;
+    });
+  });
+}
+
 let boxDisabled = false;
 
-function conditionMarkX(box) {
-  if (twoPlayerMode === false) {
-    restartClicked = false;
-    if (boxDisabled === false
-      && stopMarks === false) {
-      markX(box);
-      checkWinner();
-      boxDisabled = true;
-    } if (boxDisabled === true
-      && stopMarks === false
-      && restartClicked === false) {
-      setTimeout(() => {
+allBoxes.forEach((box) => {
+  box.addEventListener('click', (e) => {
+    if (twoPlayerMode === false) {
+      restartClicked = false;
+      if (boxDisabled === false
+        && stopMarks === false) {
         markX(box);
         checkWinner();
-        boxDisabled = false;
-      }, 600);
+        boxDisabled = true;
+        setTimeout(() => {
+          boxDisabled = false;
+          if (restartClicked === false) {
+            markX(box);
+          }
+        }, 550);
+      }
+    } else if (twoPlayerMode === true) {
+      turnFunction(e);
+    } else if (restartClicked === true) {
+      allBoxes.forEach((box) => {
+        box.innerHTML = '';
+      });
     }
-  }
-}
-
-function conditionRestart() {
-  if (restartClicked === true) {
-    allBoxes.forEach((box) => {
-      box.innerHTML = '';
-    });
-  }
-}
-
-allBoxes.forEach((box) => {
-  box.addEventListener('click', () => {
-    conditionMarkX(box);
-    conditionRestart();
   });
 });
 
 restartButton.addEventListener('click', () => {
   allBoxes.forEach((box) => {
     box.innerHTML = '';
+    if (box.classList.contains('blink')) {
+      allBoxes.forEach((box) => {
+        box.classList.remove('blink');
+        stopMarks = false;
+      });
+    }
   });
 });
