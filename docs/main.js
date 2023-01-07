@@ -105,7 +105,7 @@ function markO() {
 
 function markX(box) {
   if (!box.innerHTML.includes('X')
-  && !box.innerHTML.includes('O')) {
+    && !box.innerHTML.includes('O')) {
     box.innerHTML = 'X';
     markO();
   }
@@ -127,11 +127,11 @@ function checkWinner() {
   allBoxes.forEach((box) => {
     if (!box.classList.contains('blink')) {
       if ((bottomRightBox.innerHTML.includes('O'))
-      && (bottomMidBox.innerHTML.includes('O'))
-      && (bottomLeftBox.innerHTML.includes('O'))
-      || (bottomRightBox.innerHTML.includes('X'))
-      && (bottomMidBox.innerHTML.includes('X'))
-      && (bottomLeftBox.innerHTML.includes('X'))) {
+        && (bottomMidBox.innerHTML.includes('O'))
+        && (bottomLeftBox.innerHTML.includes('O'))
+        || (bottomRightBox.innerHTML.includes('X'))
+        && (bottomMidBox.innerHTML.includes('X'))
+        && (bottomLeftBox.innerHTML.includes('X'))) {
         bottomRightBox.classList.add('blink');
         bottomMidBox.classList.add('blink');
         bottomLeftBox.classList.add('blink');
@@ -152,21 +152,13 @@ function checkWinner() {
         text.style.transition = '0.15s';
         text.style.opacity = '0.1';
       });
-      restartButton.addEventListener('click', () => {
-        blinkBox.forEach((blink) => {
-          blink.classList.add('text');
-        });
-        reduceTextOpac.forEach((text) => {
-          text.style.transition = 'none';
-          text.style.opacity = '1';
-        });
-        restartClicked = true;
-      });
       blinkBox.forEach((blink) => {
         blink.addEventListener('click', () => {
-          blinkBox.forEach((blink) => {
-            blink.classList.add('text');
-          });
+          if (win === true) {
+            blinkBox.forEach((blink) => {
+              blink.classList.add('text');
+            });
+          }
         });
       });
       // because of this function, a bug comes in
@@ -187,7 +179,7 @@ function checkWinner() {
       //     }
       //   });
       // });
-      setTimeout(() => {
+      var resetStyles = setTimeout(() => {
         if (restartClicked === false) {
           blinkBox.forEach((blink) => {
             blink.classList.add('text');
@@ -203,7 +195,7 @@ function checkWinner() {
     if (stopMarks === true
       && restartClicked === false
       && win === true) {
-      setTimeout(() => {
+      let clearAll = setTimeout(() => {
         allBoxes.forEach((box) => {
           if (box.classList.contains('blink')) {
             allBoxes.forEach((box) => {
@@ -215,6 +207,25 @@ function checkWinner() {
           }
         });
       }, 3100);
+      const blinkBox = document.querySelectorAll('.blink');
+      const reduceTextOpac = document.querySelectorAll('.text');
+      restartButton.addEventListener('click', () => {
+        if (win === true) {
+          blinkBox.forEach((blink) => {
+            blink.classList.add('text');
+          });
+          reduceTextOpac.forEach((text) => {
+            text.style.transition = 'none';
+            text.style.opacity = '1';
+          });
+          allBoxes.forEach((box) => {
+            box.innerHTML = '';
+            clearTimeout(clearAll);
+            clearTimeout(resetStyles);
+          });
+          restartClicked = true;
+        }
+      });
     }
   });
 }
@@ -239,7 +250,7 @@ allBoxes.forEach((btnClickEvent, _, buttons) => {
 
   btnClickEvent.addEventListener('click', () => {
     if (!btnClickEvent.innerHTML.includes('X')
-    && !btnClickEvent.innerHTML.includes('O')) {
+      && !btnClickEvent.innerHTML.includes('O')) {
       animateX();
     }
   });
@@ -249,7 +260,7 @@ allBoxes.forEach((btnClickEvent, _, buttons) => {
 function firstPlayer(e) {
   allBoxes.forEach(() => {
     if (!e.target.innerHTML.includes('X')
-    || !e.target.innerHTML.includes('O')) {
+      || !e.target.innerHTML.includes('O')) {
       e.target.innerHTML = 'X';
     }
   });
@@ -258,7 +269,7 @@ function firstPlayer(e) {
 function secondPlayer(e) {
   allBoxes.forEach(() => {
     if (!e.target.innerHTML.includes('X')
-    || !e.target.innerHTML.includes('O')) {
+      || !e.target.innerHTML.includes('O')) {
       e.target.innerHTML = 'O';
     }
   });
@@ -324,19 +335,14 @@ allBoxes.forEach((box) => {
         box.innerHTML = '';
       });
     }
-    const blinkBox = document.querySelectorAll('.blink');
-    blinkBox.forEach((blink) => {
-      if (!blink.classList.contains('text')) {
-        console.log(blink)
-      }
-    });
   });
 });
 
 restartButton.addEventListener('click', () => {
   allBoxes.forEach((box) => {
-    box.innerHTML = '';
-    win = false;
+    if (win === false) {
+      box.innerHTML = '';
+    }
     if (box.classList.contains('blink')) {
       allBoxes.forEach((box) => {
         box.classList.remove('blink');
