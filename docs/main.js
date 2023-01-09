@@ -85,6 +85,7 @@ function markO() {
       allBoxes.forEach((box) => {
         if (box.innerHTML.includes('X')) {
           randomBox.innerHTML = 'O';
+          checkWinner();
         }
       });
     } else if (restartClicked === true) {
@@ -135,6 +136,69 @@ function checkWinner() {
         bottomRightBox.classList.add('blink');
         bottomMidBox.classList.add('blink');
         bottomLeftBox.classList.add('blink');
+      } else if ((bottomRightBox.innerHTML.includes('O'))
+      && (centerBox.innerHTML.includes('O'))
+      && (upLeftBox.innerHTML.includes('O'))
+      || (bottomRightBox.innerHTML.includes('X'))
+      && (centerBox.innerHTML.includes('X'))
+      && (upLeftBox.innerHTML.includes('X'))) {
+        bottomRightBox.classList.add('blink');
+        centerBox.classList.add('blink');
+        upLeftBox.classList.add('blink');
+      } else if ((bottomRightBox.innerHTML.includes('O'))
+      && (midRightBox.innerHTML.includes('O'))
+      && (upRightBox.innerHTML.includes('O'))
+      || (bottomRightBox.innerHTML.includes('X'))
+      && (midRightBox.innerHTML.includes('X'))
+      && (upRightBox.innerHTML.includes('X'))) {
+        bottomRightBox.classList.add('blink');
+        midRightBox.classList.add('blink');
+        upRightBox.classList.add('blink');
+      } else if ((bottomMidBox.innerHTML.includes('O'))
+      && (centerBox.innerHTML.includes('O'))
+      && (upMidBox.innerHTML.includes('O'))
+      || (bottomMidBox.innerHTML.includes('X'))
+      && (centerBox.innerHTML.includes('X'))
+      && (upMidBox.innerHTML.includes('X'))) {
+        bottomMidBox.classList.add('blink');
+        centerBox.classList.add('blink');
+        upMidBox.classList.add('blink');
+      } else if ((bottomLeftBox.innerHTML.includes('O'))
+      && (centerBox.innerHTML.includes('O'))
+      && (upRightBox.innerHTML.includes('O'))
+      || (bottomLeftBox.innerHTML.includes('X'))
+      && (centerBox.innerHTML.includes('X'))
+      && (upRightBox.innerHTML.includes('X'))) {
+        bottomLeftBox.classList.add('blink');
+        centerBox.classList.add('blink');
+        upRightBox.classList.add('blink');
+      } else if ((bottomLeftBox.innerHTML.includes('O'))
+      && (midLeftBox.innerHTML.includes('O'))
+      && (upLeftBox.innerHTML.includes('O'))
+      || (bottomLeftBox.innerHTML.includes('X'))
+      && (midLeftBox.innerHTML.includes('X'))
+      && (upLeftBox.innerHTML.includes('X'))) {
+        bottomLeftBox.classList.add('blink');
+        midLeftBox.classList.add('blink');
+        upLeftBox.classList.add('blink');
+      } else if ((midLeftBox.innerHTML.includes('O'))
+      && (centerBox.innerHTML.includes('O'))
+      && (midRightBox.innerHTML.includes('O'))
+      || (midLeftBox.innerHTML.includes('X'))
+      && (centerBox.innerHTML.includes('X'))
+      && (midRightBox.innerHTML.includes('X'))) {
+        midLeftBox.classList.add('blink');
+        centerBox.classList.add('blink');
+        midRightBox.classList.add('blink');
+      } else if ((upLeftBox.innerHTML.includes('O'))
+      && (upMidBox.innerHTML.includes('O'))
+      && (upRightBox.innerHTML.includes('O'))
+      || (upLeftBox.innerHTML.includes('X'))
+      && (upMidBox.innerHTML.includes('X'))
+      && (upRightBox.innerHTML.includes('X'))) {
+        upLeftBox.classList.add('blink');
+        upMidBox.classList.add('blink');
+        upRightBox.classList.add('blink');
       }
     } else if (box.classList.contains('blink')) {
       stopMarks = true;
