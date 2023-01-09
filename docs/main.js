@@ -161,24 +161,6 @@ function checkWinner() {
           }
         });
       });
-      // because of this function, a bug comes in
-      // take note of clearTimeout method
-      // doesn't work well
-      // allBoxes.forEach((box) => {
-      //   box.addEventListener('click', () => {
-      //     if (win === true) {
-      //       allBoxes.forEach((box) => {
-      //         box.innerHTML = '';
-      //         box.style.transition = 'none';
-      //         box.style.oapcity = '1';
-      //       });
-      //       blinkBox.forEach((blink) => {
-      //         blink.classList.add('text');
-      //       });
-      //       win = false;
-      //     }
-      //   });
-      // });
       var resetStyles = setTimeout(() => {
         if (restartClicked === false) {
           blinkBox.forEach((blink) => {
@@ -195,7 +177,7 @@ function checkWinner() {
     if (stopMarks === true
       && restartClicked === false
       && win === true) {
-      let clearAll = setTimeout(() => {
+      const clearAll = setTimeout(() => {
         allBoxes.forEach((box) => {
           if (box.classList.contains('blink')) {
             allBoxes.forEach((box) => {
@@ -209,22 +191,46 @@ function checkWinner() {
       }, 3100);
       const blinkBox = document.querySelectorAll('.blink');
       const reduceTextOpac = document.querySelectorAll('.text');
+      allBoxes.forEach((box) => {
+        box.classList.add('clear');
+      });
+      const clickRestart = document.querySelectorAll('.clear');
+      // clickRestart.forEach((restart) => {
+      //   restart.addEventListener('click', () => {
+      //       if (win === true) {
+      //         allBoxes.forEach((box) => {
+      //           if (box.classList.contains('blink')) {
+      //             clickRestart.forEach((restart) => {
+      //               restart.innerHTML = '';
+      //               restart.classList.remove('blink');
+      //               restart.classList.add('text');
+      //             });
+      //             stopMarks = false;
+      //             win = false;
+      //           }
+      //         });
+      //       }
+      //   });
+      // });
       restartButton.addEventListener('click', () => {
-        if (win === true) {
-          blinkBox.forEach((blink) => {
-            blink.classList.add('text');
-          });
-          reduceTextOpac.forEach((text) => {
-            text.style.transition = 'none';
-            text.style.opacity = '1';
-          });
-          allBoxes.forEach((box) => {
-            box.innerHTML = '';
-            clearTimeout(clearAll);
-            clearTimeout(resetStyles);
-          });
-          restartClicked = true;
-        }
+        blinkBox.forEach((blink) => {
+          blink.classList.add('text');
+        });
+        reduceTextOpac.forEach((text) => {
+          text.style.transition = 'none';
+          text.style.opacity = '1';
+        });
+        allBoxes.forEach((box) => {
+          box.innerHTML = '';
+          clearTimeout(clearAll);
+          clearTimeout(resetStyles);
+        });
+        restartClicked = true;
+        win = false;
+      });
+    } else if (win === false) {
+      allBoxes.forEach((box) => {
+        box.classList.remove('clear');
       });
     }
   });
@@ -317,10 +323,13 @@ let boxDisabled = false;
 
 allBoxes.forEach((box) => {
   box.addEventListener('click', (e) => {
+    const blinkBox = document.querySelectorAll('.blink');
+    const reduceTextOpac = document.querySelectorAll('.text');
     if (twoPlayerMode === false) {
       restartClicked = false;
       if (boxDisabled === false
-        && stopMarks === false) {
+        && stopMarks === false
+        && win === false) {
         markX(box);
         checkWinner();
         boxDisabled = true;
