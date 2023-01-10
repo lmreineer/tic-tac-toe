@@ -161,7 +161,8 @@ body {
     text-transform: uppercase;
 }
 
-.blink {
+.blink,
+.tie {
     animation: blink 0.35s linear infinite;
 }
 

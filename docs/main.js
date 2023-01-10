@@ -1,6 +1,3 @@
-// note:
-// if player chose a certain spot, choose certain available boxes for the computer to choose from which will be randomized, can be 2 or more
-
 const userContainer = document.querySelector('.user-container');
 const userPlayer = document.querySelector('.user-player');
 const userComputer = document.querySelector('.user-computer');
@@ -39,6 +36,15 @@ userContainer.addEventListener('click', () => {
     userPlayer.style.opacity = '1';
     twoPlayerMode = false;
   }
+
+  allBoxes.forEach((box) => {
+    if (box.classList.contains('blink')) {
+      allBoxes.forEach((box) => {
+        box.classList.remove('blink');
+        stopMarks = false;
+      });
+    }
+  });
 });
 
 let restartClicked = false;
@@ -123,7 +129,7 @@ const bottomMidBox = document.querySelector('.bot-mid');
 const bottomRightBox = document.querySelector('.bot-right');
 
 let win = false;
-
+// needs tie
 function checkWinner() {
   allBoxes.forEach((box) => {
     if (!box.classList.contains('blink')) {
@@ -258,7 +264,7 @@ function checkWinner() {
       allBoxes.forEach((box) => {
         box.classList.add('clear');
       });
-      const clickRestart = document.querySelectorAll('.clear');
+      // const clickRestart = document.querySelectorAll('.clear');
       // clickRestart.forEach((restart) => {
       //   restart.addEventListener('click', () => {
       //       if (win === true) {
@@ -277,6 +283,23 @@ function checkWinner() {
       //   });
       // });
       restartButton.addEventListener('click', () => {
+        blinkBox.forEach((blink) => {
+          blink.classList.add('text');
+        });
+        reduceTextOpac.forEach((text) => {
+          text.style.transition = 'none';
+          text.style.opacity = '1';
+        });
+        allBoxes.forEach((box) => {
+          box.innerHTML = '';
+          clearTimeout(clearAll);
+          clearTimeout(resetStyles);
+        });
+        restartClicked = true;
+        win = false;
+      });
+
+      userContainer.addEventListener('click', () => {
         blinkBox.forEach((blink) => {
           blink.classList.add('text');
         });
@@ -345,11 +368,77 @@ function secondPlayer(e) {
   });
 }
 
+function checkTwoPlayerWinner() {
+  allBoxes.forEach((box) => {
+    if (box.classList.contains('blink')) {
+      const blinkBox = document.querySelectorAll('.blink');
+      const reduceTextOpac = document.querySelectorAll('.text');
+      const resetStyles = setTimeout(() => {
+        blinkBox.forEach((blink) => {
+          blink.classList.remove('blink');
+          blink.classList.add('text');
+        });
+        reduceTextOpac.forEach((text) => {
+          text.style.transition = 'none';
+          text.style.opacity = '1';
+        });
+      }, 3200);
+
+      const clearAll = setTimeout(() => {
+        allBoxes.forEach((box) => {
+          box.innerHTML = '';
+          box.classList.remove('blink');
+          win = false;
+          userComputer.style.opacity = '0.4';
+          userPlayer.style.transition = '0.5s';
+          userPlayer.style.opacity = '1';
+          firstTurn = false;
+        });
+      }, 3100);
+
+      restartButton.addEventListener('click', () => {
+        blinkBox.forEach((blink) => {
+          blink.classList.add('text');
+        });
+        reduceTextOpac.forEach((text) => {
+          text.style.transition = 'none';
+          text.style.opacity = '1';
+        });
+        allBoxes.forEach((box) => {
+          box.innerHTML = '';
+          clearTimeout(clearAll);
+          clearTimeout(resetStyles);
+        });
+        restartClicked = true;
+        win = false;
+      });
+
+      userContainer.addEventListener('click', () => {
+        blinkBox.forEach((blink) => {
+          blink.classList.add('text');
+        });
+        reduceTextOpac.forEach((text) => {
+          text.style.transition = 'none';
+          text.style.opacity = '1';
+        });
+        allBoxes.forEach((box) => {
+          box.innerHTML = '';
+          clearTimeout(clearAll);
+          clearTimeout(resetStyles);
+        });
+        restartClicked = true;
+        win = false;
+      });
+    }
+  });
+}
+
 let firstTurn = false;
 
 function turnFunction(e) {
   allBoxes.forEach(() => {
     if (firstTurn === false
+      && win === false
       && !e.target.innerHTML.includes('O')
       && !e.target.innerHTML.includes('X')) {
       firstPlayer(e);
@@ -358,6 +447,7 @@ function turnFunction(e) {
       userComputer.style.opacity = '1';
       firstTurn = true;
     } else if (firstTurn === true
+      && win === false
       && !e.target.innerHTML.includes('X')
       && !e.target.innerHTML.includes('O')) {
       secondPlayer(e);
@@ -387,8 +477,6 @@ let boxDisabled = false;
 
 allBoxes.forEach((box) => {
   box.addEventListener('click', (e) => {
-    const blinkBox = document.querySelectorAll('.blink');
-    const reduceTextOpac = document.querySelectorAll('.text');
     if (twoPlayerMode === false) {
       restartClicked = false;
       if (boxDisabled === false
@@ -403,6 +491,8 @@ allBoxes.forEach((box) => {
       }
     } else if (twoPlayerMode === true) {
       turnFunction(e);
+      checkWinner();
+      checkTwoPlayerWinner();
     } else if (restartClicked === true) {
       allBoxes.forEach((box) => {
         box.innerHTML = '';
