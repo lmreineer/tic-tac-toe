@@ -427,6 +427,7 @@ function checkTwoPlayerWinner() {
           clearTimeout(resetStyles);
         });
         restartClicked = true;
+        stopMarks = false;
         win = false;
       });
     }
