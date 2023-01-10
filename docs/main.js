@@ -349,7 +349,7 @@ allBoxes.forEach((btnClickEvent, _, buttons) => {
   });
 });
 
-// single mode
+// two player mode
 function firstPlayer(e) {
   allBoxes.forEach(() => {
     if (!e.target.innerHTML.includes('X')
