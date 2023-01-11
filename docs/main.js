@@ -1,3 +1,5 @@
+// needs the bugs to be fixed
+
 const userContainer = document.querySelector('.user-container');
 const userPlayer = document.querySelector('.user-player');
 const userComputer = document.querySelector('.user-computer');
