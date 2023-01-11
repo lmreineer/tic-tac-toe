@@ -207,6 +207,9 @@ function checkWinner() {
         upRightBox.classList.add('blink');
       }
     } else if (box.classList.contains('blink')) {
+      const audio = new Audio('./res/victory-sound-clip.wav');
+      audio.volume = '0.03';
+      audio.play();
       stopMarks = true;
       const blinkBox = document.querySelectorAll('.blink');
       blinkBox.forEach((blink) => {
