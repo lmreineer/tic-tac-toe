@@ -81,6 +81,7 @@ restartButton.addEventListener('click', () => {
 });
 
 let stopMarks = false;
+let stopAnimation = false;
 
 function markO() {
   setTimeout(() => {
@@ -92,6 +93,23 @@ function markO() {
         if (box.innerHTML.includes('X')) {
           randomBox.innerHTML = 'O';
           checkWinner();
+          if (bottomRightBox.innerHTML.includes('X')
+          && bottomMidBox.innerHTML.includes('X')) {
+            randomBox.innerHTML = '';
+            if (bottomLeftBox.innerHTML.includes('O')) {
+              randomBox.innerHTML = 'O';
+            } else if (stopAnimation === true) {
+              randomBox.innerHTML = 'O';
+            }
+          } else if (bottomRightBox.innerHTML.includes('X')
+          && bottomLeftBox.innerHTML.includes('X')) {
+            randomBox.innerHTML = '';
+            if (bottomMidBox.innerHTML.includes('O')) {
+              randomBox.innerHTML = 'O';
+            } else if (stopAnimation === true) {
+              randomBox.innerHTML = 'O';
+            }
+          } 
         }
       });
     } else if (restartClicked === true) {
@@ -110,11 +128,59 @@ function markO() {
   }, 500);
 }
 
+
+function predictMarksForO() {
+  setTimeout(() => {
+    let restAllBoxes = [...allBoxes].filter((box) => !box.innerHTML.includes('X') && !box.innerHTML.includes('O'));
+    let staticPick = rando(restAllBoxes).value;
+    if (restartClicked === false
+      && stopMarks === false) {
+      allBoxes.forEach((box) => {
+        if (box.innerHTML.includes('X')) {
+          if (bottomRightBox.innerHTML.includes('X')
+          && bottomMidBox.innerHTML.includes('X')) {
+            if (!bottomLeftBox.innerHTML.includes('O')) {
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'))
+              staticPick = rando(restAllBoxes).value;
+              staticPick.innerHTML = 'O';
+              bottomLeftBox.innerHTML = staticPick.innerHTML;
+              if (stopAnimation === false) {
+                staticPick.classList.replace('comp', 'oActive');
+                stopAnimation = true;
+              }
+            }
+          } else if (bottomRightBox.innerHTML.includes('X')
+          && bottomLeftBox.innerHTML.includes('X')) {
+            if (!bottomMidBox.innerHTML.includes('O')) {
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-mid'))
+              staticPick = rando(restAllBoxes).value;
+              staticPick.innerHTML = 'O';
+              bottomMidBox.innerHTML = staticPick.innerHTML;
+              if (stopAnimation === false) {
+                staticPick.classList.replace('comp', 'oActive');
+                stopAnimation = true;
+              }
+            }
+          } 
+        }
+      });
+    } else if (restartClicked === true) {
+      allBoxes.forEach((box) => {
+        box.innerHTML = '';
+      });
+    }
+
+    // toggle 'oComputer' class
+    animateO();
+  }, 500);
+}
+
 function markX(box) {
   if (!box.innerHTML.includes('X')
     && !box.innerHTML.includes('O')) {
     box.innerHTML = 'X';
     markO();
+    predictMarksForO();
   }
 }
 
