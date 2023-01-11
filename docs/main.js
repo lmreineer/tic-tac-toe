@@ -127,9 +127,10 @@ const midRightBox = document.querySelector('.mid-right');
 const bottomLeftBox = document.querySelector('.bot-left');
 const bottomMidBox = document.querySelector('.bot-mid');
 const bottomRightBox = document.querySelector('.bot-right');
+const allBorders = document.querySelectorAll('.border');
 
 let win = false;
-// needs tie
+
 function checkWinner() {
   allBoxes.forEach((box) => {
     if (!box.classList.contains('blink')) {
