@@ -576,7 +576,7 @@ function predictMarksForO() {
               }, 3100);
             });
             const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-            drawAudio.volume = '0.05';
+            drawAudio.volume = '3';
             drawAudio.play();
           }
         }
