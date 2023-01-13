@@ -1,4 +1,9 @@
 // needs the bugs to be fixed
+// the bug is perhaps coming from the restart button,
+// it marks out two boxes unless you choose a box that is
+// not a part of a prediction system
+// there's also a bug where when you put three marks on specific corners
+// and when gameOver happens
 
 const userContainer = document.querySelector('.user-container');
 const userPlayer = document.querySelector('.user-player');
@@ -102,6 +107,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (bottomRightBox.innerHTML.includes('X')
           && bottomLeftBox.innerHTML.includes('X')) {
@@ -110,6 +116,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (bottomRightBox.innerHTML.includes('X')
           && midRightBox.innerHTML.includes('X')) {
@@ -118,6 +125,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (bottomRightBox.innerHTML.includes('X')
           && upRightBox.innerHTML.includes('X')) {
@@ -126,6 +134,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (midRightBox.innerHTML.includes('X')
           && upRightBox.innerHTML.includes('X')) {
@@ -134,6 +143,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upRightBox.innerHTML.includes('X')
           && upMidBox.innerHTML.includes('X')) {
@@ -142,6 +152,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upRightBox.innerHTML.includes('X')
           && upLeftBox.innerHTML.includes('X')) {
@@ -150,6 +161,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upLeftBox.innerHTML.includes('X')
           && bottomLeftBox.innerHTML.includes('X')) {
@@ -158,6 +170,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (bottomLeftBox.innerHTML.includes('X')
           && bottomMidBox.innerHTML.includes('X')) {
@@ -166,6 +179,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upLeftBox.innerHTML.includes('X')
           && midLeftBox.innerHTML.includes('X')) {
@@ -174,6 +188,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upLeftBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
@@ -182,6 +197,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (bottomLeftBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
@@ -190,6 +206,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (midLeftBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
@@ -198,6 +215,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (midRightBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
@@ -206,6 +224,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (bottomRightBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
@@ -214,6 +233,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (midRightBox.innerHTML.includes('X')
           && midLeftBox.innerHTML.includes('X')) {
@@ -222,6 +242,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upRightBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
@@ -230,6 +251,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upMidBox.innerHTML.includes('X')
           && bottomMidBox.innerHTML.includes('X')) {
@@ -238,6 +260,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upRightBox.innerHTML.includes('X')
           && bottomLeftBox.innerHTML.includes('X')) {
@@ -246,6 +269,7 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
           } else if (upLeftBox.innerHTML.includes('X')
           && bottomRightBox.innerHTML.includes('X')) {
@@ -254,8 +278,9 @@ function markO() {
               randomBox.innerHTML = 'O';
             } else if (stopAnimation === true) {
               randomBox.innerHTML = 'O';
+              stopAnimation = false;
             }
-          } 
+          }
         }
       });
     } else if (restartClicked === true) {
@@ -264,7 +289,6 @@ function markO() {
       });
     }
 
-    
     // toggle 'oComputer' class
     const clickedBox = randomBox;
     for (let i = 0; i < allBoxes.length; i++) {
@@ -274,7 +298,6 @@ function markO() {
     animateO();
   }, 500);
 }
-
 
 function predictMarksForO() {
   setTimeout(() => {
@@ -287,7 +310,7 @@ function predictMarksForO() {
           if (bottomRightBox.innerHTML.includes('X')
           && bottomMidBox.innerHTML.includes('X')) {
             if (!bottomLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               bottomLeftBox.innerHTML = staticPick.innerHTML;
@@ -298,7 +321,7 @@ function predictMarksForO() {
             } else if (bottomRightBox.innerHTML.includes('O')
             && bottomMidBox.innerHTML.includes('O')) {
               if (!bottomLeftBox.innerHTML.includes('X')) {
-                restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'))
+                restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'));
                 staticPick = rando(restAllBoxes).value;
                 staticPick.innerHTML = 'O';
                 bottomLeftBox.innerHTML = staticPick.innerHTML;
@@ -323,7 +346,7 @@ function predictMarksForO() {
           } else if (bottomRightBox.innerHTML.includes('X')
           && midRightBox.innerHTML.includes('X')) {
             if (!upRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               upRightBox.innerHTML = staticPick.innerHTML;
@@ -335,7 +358,7 @@ function predictMarksForO() {
           } else if (bottomRightBox.innerHTML.includes('X')
           && upRightBox.innerHTML.includes('X')) {
             if (!midRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               midRightBox.innerHTML = staticPick.innerHTML;
@@ -347,7 +370,7 @@ function predictMarksForO() {
           } else if (midRightBox.innerHTML.includes('X')
           && upRightBox.innerHTML.includes('X')) {
             if (!bottomRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               bottomRightBox.innerHTML = staticPick.innerHTML;
@@ -359,7 +382,7 @@ function predictMarksForO() {
           } else if (upRightBox.innerHTML.includes('X')
           && upMidBox.innerHTML.includes('X')) {
             if (!upLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               upLeftBox.innerHTML = staticPick.innerHTML;
@@ -371,7 +394,7 @@ function predictMarksForO() {
           } else if (upRightBox.innerHTML.includes('X')
           && upLeftBox.innerHTML.includes('X')) {
             if (!upMidBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-mid'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-mid'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               upMidBox.innerHTML = staticPick.innerHTML;
@@ -383,7 +406,7 @@ function predictMarksForO() {
           } else if (upLeftBox.innerHTML.includes('X')
           && bottomLeftBox.innerHTML.includes('X')) {
             if (!midLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               midLeftBox.innerHTML = staticPick.innerHTML;
@@ -395,7 +418,7 @@ function predictMarksForO() {
           } else if (upLeftBox.innerHTML.includes('X')
           && midLeftBox.innerHTML.includes('X')) {
             if (!bottomLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               bottomLeftBox.innerHTML = staticPick.innerHTML;
@@ -407,7 +430,7 @@ function predictMarksForO() {
           } else if (bottomLeftBox.innerHTML.includes('X')
           && bottomMidBox.innerHTML.includes('X')) {
             if (!bottomRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               bottomRightBox.innerHTML = staticPick.innerHTML;
@@ -419,7 +442,7 @@ function predictMarksForO() {
           } else if (upLeftBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
             if (!bottomRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               bottomRightBox.innerHTML = staticPick.innerHTML;
@@ -431,7 +454,7 @@ function predictMarksForO() {
           } else if (bottomLeftBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
             if (!upRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               upRightBox.innerHTML = staticPick.innerHTML;
@@ -443,7 +466,7 @@ function predictMarksForO() {
           } else if (midLeftBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
             if (!midRightBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-right'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-right'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               midRightBox.innerHTML = staticPick.innerHTML;
@@ -455,7 +478,7 @@ function predictMarksForO() {
           } else if (midRightBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
             if (!midLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('mid-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               midLeftBox.innerHTML = staticPick.innerHTML;
@@ -467,7 +490,7 @@ function predictMarksForO() {
           } else if (bottomRightBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
             if (!upLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('up-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               upLeftBox.innerHTML = staticPick.innerHTML;
@@ -479,7 +502,7 @@ function predictMarksForO() {
           } else if (midRightBox.innerHTML.includes('X')
           && midLeftBox.innerHTML.includes('X')) {
             if (!centerBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               centerBox.innerHTML = staticPick.innerHTML;
@@ -491,7 +514,7 @@ function predictMarksForO() {
           } else if (upRightBox.innerHTML.includes('X')
           && centerBox.innerHTML.includes('X')) {
             if (!bottomLeftBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('bot-left'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               bottomLeftBox.innerHTML = staticPick.innerHTML;
@@ -503,7 +526,7 @@ function predictMarksForO() {
           } else if (upMidBox.innerHTML.includes('X')
           && bottomMidBox.innerHTML.includes('X')) {
             if (!centerBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               centerBox.innerHTML = staticPick.innerHTML;
@@ -515,7 +538,7 @@ function predictMarksForO() {
           } else if (upRightBox.innerHTML.includes('X')
           && bottomLeftBox.innerHTML.includes('X')) {
             if (!centerBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               centerBox.innerHTML = staticPick.innerHTML;
@@ -527,7 +550,7 @@ function predictMarksForO() {
           } else if (upLeftBox.innerHTML.includes('X')
           && bottomRightBox.innerHTML.includes('X')) {
             if (!centerBox.innerHTML.includes('O')) {
-              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'))
+              restAllBoxes = [...allBoxes].filter((box) => box.classList.contains('center'));
               staticPick = rando(restAllBoxes).value;
               staticPick.innerHTML = 'O';
               centerBox.innerHTML = staticPick.innerHTML;
@@ -536,10 +559,22 @@ function predictMarksForO() {
                 stopAnimation = true;
               }
             }
-          } 
-          
-          // for markO
-          
+          }
+
+          const checkMarkXLength = [...allBoxes].filter((box) => box.innerHTML.includes('X'));
+          if (checkMarkXLength.length === 5
+            && win === false) {
+            allBoxes.forEach((box) => {
+              box.classList.remove('oActive');
+              box.classList.add('tie');
+              setTimeout(() => {
+                box.classList.remove('tie');
+                box.innerHTML = '';
+              }, 3100);
+            });
+            const audio = new Audio('./res/sound-clips/draw-sound-clip.wav');
+            audio.play();
+          }
         }
       });
     } else if (restartClicked === true) {
@@ -560,19 +595,6 @@ function markX(box) {
     markO();
     predictMarksForO();
   }
-
-  const checkMarkXLength = [...allBoxes].filter((box) => box.innerHTML.includes('X'));
-  if (checkMarkXLength.length === 5
-    && win === false) {
-    allBoxes.forEach((box) => {
-      box.classList.remove('oActive');
-      box.classList.add('tie');
-      setTimeout(() => {
-        box.classList.remove('tie');
-        box.innerHTML = '';
-      }, 3100);
-    });
-  }
 }
 
 const upLeftBox = document.querySelector('.up-left');
@@ -586,6 +608,7 @@ const bottomMidBox = document.querySelector('.bot-mid');
 const bottomRightBox = document.querySelector('.bot-right');
 
 let win = false;
+let clickedOnce = false;
 
 function checkWinner() {
   allBoxes.forEach((box) => {
@@ -664,9 +687,18 @@ function checkWinner() {
         upRightBox.classList.add('blink');
       }
     } else if (box.classList.contains('blink')) {
-      const audio = new Audio('./res/victory-sound-clip.wav');
-      audio.volume = '0.03';
-      audio.play();
+      const checkMarkXLength = [...allBoxes].filter((box) => box.innerHTML.includes('X'));
+      if (checkMarkXLength.length < 5) {
+        allBoxes.forEach((box) => {
+          if (!box.classList.contains('tie')
+          && clickedOnce === false) {
+            const audio = new Audio('./res/sound-clips/victory-sound-clip.wav');
+            audio.volume = '0.03';
+            audio.play();
+            clickedOnce = true;
+          }
+        });
+      }
       stopMarks = true;
       const blinkBox = document.querySelectorAll('.blink');
       blinkBox.forEach((blink) => {
@@ -701,6 +733,7 @@ function checkWinner() {
             text.style.opacity = '1';
           });
         }
+        clickedOnce = false;
       }, 3200);
     }
 
@@ -757,6 +790,7 @@ function checkWinner() {
         });
         restartClicked = true;
         win = false;
+        clickedOnce = false;
       });
 
       userContainer.addEventListener('click', () => {
@@ -774,6 +808,7 @@ function checkWinner() {
         });
         restartClicked = true;
         win = false;
+        clickedOnce = false;
       });
     } else if (win === false) {
       allBoxes.forEach((box) => {
@@ -833,7 +868,7 @@ function checkTwoPlayerWinner() {
     if (box.classList.contains('blink')) {
       const blinkBox = document.querySelectorAll('.blink');
       const reduceTextOpac = document.querySelectorAll('.text');
-      const resetStyles = setTimeout(() => {
+      var resetStyles = setTimeout(() => {
         blinkBox.forEach((blink) => {
           blink.classList.remove('blink');
           blink.classList.add('text');
@@ -844,7 +879,7 @@ function checkTwoPlayerWinner() {
         });
       }, 3200);
 
-      const clearAll = setTimeout(() => {
+      var clearAll = setTimeout(() => {
         allBoxes.forEach((box) => {
           box.innerHTML = '';
           box.classList.remove('blink');
@@ -855,42 +890,75 @@ function checkTwoPlayerWinner() {
           firstTurn = false;
         });
       }, 3100);
-
-      restartButton.addEventListener('click', () => {
-        blinkBox.forEach((blink) => {
-          blink.classList.add('text');
-        });
-        reduceTextOpac.forEach((text) => {
-          text.style.transition = 'none';
-          text.style.opacity = '1';
-        });
-        allBoxes.forEach((box) => {
-          box.innerHTML = '';
-          clearTimeout(clearAll);
-          clearTimeout(resetStyles);
-        });
-        restartClicked = true;
-        win = false;
-      });
-
-      userContainer.addEventListener('click', () => {
-        blinkBox.forEach((blink) => {
-          blink.classList.add('text');
-        });
-        reduceTextOpac.forEach((text) => {
-          text.style.transition = 'none';
-          text.style.opacity = '1';
-        });
-        allBoxes.forEach((box) => {
-          box.innerHTML = '';
-          clearTimeout(clearAll);
-          clearTimeout(resetStyles);
-        });
-        restartClicked = true;
-        stopMarks = false;
-        win = false;
-      });
     }
+
+    const checkMarkXLength = [...allBoxes].filter((box) => box.innerHTML.includes('X'));
+    if (checkMarkXLength.length === 5
+      && !box.classList.contains('blink')
+      && win === false
+      && clickedOnce === false) {
+      allBoxes.forEach((box) => {
+        box.classList.add('tie');
+      });
+      const audio = new Audio('./res/sound-clips/draw-sound-clip.wav');
+      audio.volume = '0.2';
+      audio.play();
+      clickedOnce = true;
+      clearTimeout(clearAll);
+      clearTimeout(resetStyles);
+      var tieTimeout = setTimeout(() => {
+        allBoxes.forEach((box) => {
+          box.classList.remove('tie');
+          box.innerHTML = '';
+          userComputer.style.opacity = '0.4';
+          userPlayer.style.transition = '0.5s';
+          userPlayer.style.opacity = '1';
+          firstTurn = false;
+        });
+      }, 3200);
+    }
+
+    const blinkBox = document.querySelectorAll('.blink');
+    const reduceTextOpac = document.querySelectorAll('.text');
+
+    restartButton.addEventListener('click', () => {
+      blinkBox.forEach((blink) => {
+        blink.classList.add('text');
+      });
+      reduceTextOpac.forEach((text) => {
+        text.style.transition = 'none';
+        text.style.opacity = '1';
+      });
+      allBoxes.forEach((box) => {
+        box.classList.remove('tie');
+        box.innerHTML = '';
+        clearTimeout(clearAll);
+        clearTimeout(resetStyles);
+        clearTimeout(tieTimeout);
+      });
+      restartClicked = true;
+      win = false;
+    });
+
+    userContainer.addEventListener('click', () => {
+      blinkBox.forEach((blink) => {
+        blink.classList.add('text');
+      });
+      reduceTextOpac.forEach((text) => {
+        text.style.transition = 'none';
+        text.style.opacity = '1';
+      });
+      allBoxes.forEach((box) => {
+        box.classList.remove('tie');
+        box.innerHTML = '';
+        clearTimeout(clearAll);
+        clearTimeout(resetStyles);
+        clearTimeout(tieTimeout);
+      });
+      restartClicked = true;
+      stopMarks = false;
+      win = false;
+    });
   });
 }
 
@@ -899,7 +967,7 @@ let firstTurn = false;
 function turnFunction(e) {
   allBoxes.forEach(() => {
     if (firstTurn === false
-      && win === false
+        && win === false
       && !e.target.innerHTML.includes('O')
       && !e.target.innerHTML.includes('X')) {
       firstPlayer(e);
@@ -972,6 +1040,7 @@ restartButton.addEventListener('click', () => {
         box.classList.remove('blink');
         stopMarks = false;
       });
+      stopAnimation = false;
     }
   });
 });
