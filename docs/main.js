@@ -576,7 +576,7 @@ function predictMarksForO() {
               }, 3100);
             });
             const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-            drawAudio.volume = '0.2';
+            drawAudio.volume = '0.05';
             drawAudio.play();
           }
         }
@@ -682,7 +682,7 @@ function checkWinner() {
       }
     } else if (box.classList.contains('blink')) {
       const checkMarkXLength = [...allBoxes].filter((box) => box.innerHTML.includes('X'));
-      if (checkMarkXLength.length < 5) {
+      if (checkMarkXLength.length <= 5) {
         allBoxes.forEach((box) => {
           if (!box.classList.contains('tie')
           && clickedOnce === false) {
