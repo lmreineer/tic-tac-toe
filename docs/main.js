@@ -297,6 +297,7 @@ function markO() {
       allBoxes[i].classList.replace('oActive', 'comp');
     }
     clickedBox.classList.replace('comp', 'oActive');
+
     animateO();
   }, 500);
 }
@@ -575,6 +576,7 @@ function predictMarksForO() {
               }, 3100);
             });
             const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
+            drawAudio.volume = '0.2';
             drawAudio.play();
           }
         }
@@ -893,6 +895,7 @@ function checkTwoPlayerWinner() {
       allBoxes.forEach((box) => {
         box.classList.add('tie');
       });
+      const twoPlayerDrawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
       twoPlayerDrawAudio.volume = '0.2';
       twoPlayerDrawAudio.play();
       clearTimeout(clearAll);
