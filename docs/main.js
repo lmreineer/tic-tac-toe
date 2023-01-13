@@ -576,7 +576,7 @@ function predictMarksForO() {
               }, 3100);
             });
             const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-            drawAudio.volume = '3';
+            drawAudio.volume = '0.3';
             drawAudio.play();
           }
         }
@@ -687,7 +687,7 @@ function checkWinner() {
           if (!box.classList.contains('tie')
           && clickedOnce === false) {
             const victoryAudio = new Audio('./res/sound-clips/victory-sound-clip.wav');
-            victoryAudio.volume = '0.03';
+            victoryAudio.volume = '0.3';
             victoryAudio.play();
             clickedOnce = true;
           }
