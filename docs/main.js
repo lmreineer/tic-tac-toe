@@ -15,6 +15,7 @@ hoverImage.addEventListener('mouseout', () => {
 });
 
 let twoPlayerMode = false;
+let stopMarks = false;
 
 userContainer.addEventListener('click', () => {
   if (twoPlayerMode === false) {
@@ -79,7 +80,16 @@ restartButton.addEventListener('click', () => {
   }
 });
 
-let stopMarks = false;
+const upLeftBox = document.querySelector('.up-left');
+const upMidBox = document.querySelector('.up-mid');
+const upRightBox = document.querySelector('.up-right');
+const midLeftBox = document.querySelector('.mid-left');
+const centerBox = document.querySelector('.center');
+const midRightBox = document.querySelector('.mid-right');
+const bottomLeftBox = document.querySelector('.bot-left');
+const bottomMidBox = document.querySelector('.bot-mid');
+const bottomRightBox = document.querySelector('.bot-right');
+
 let stopAnimation = false;
 
 function markO() {
@@ -564,8 +574,8 @@ function predictMarksForO() {
                 box.innerHTML = '';
               }, 3100);
             });
-            const audio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-            audio.play();
+            const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
+            drawAudio.play();
           }
         }
       });
@@ -588,16 +598,6 @@ function markX(box) {
     predictMarksForO();
   }
 }
-
-const upLeftBox = document.querySelector('.up-left');
-const upMidBox = document.querySelector('.up-mid');
-const upRightBox = document.querySelector('.up-right');
-const midLeftBox = document.querySelector('.mid-left');
-const centerBox = document.querySelector('.center');
-const midRightBox = document.querySelector('.mid-right');
-const bottomLeftBox = document.querySelector('.bot-left');
-const bottomMidBox = document.querySelector('.bot-mid');
-const bottomRightBox = document.querySelector('.bot-right');
 
 let win = false;
 let clickedOnce = false;
@@ -684,9 +684,9 @@ function checkWinner() {
         allBoxes.forEach((box) => {
           if (!box.classList.contains('tie')
           && clickedOnce === false) {
-            const audio = new Audio('./res/sound-clips/victory-sound-clip.wav');
-            audio.volume = '0.03';
-            audio.play();
+            const victoryAudio = new Audio('./res/sound-clips/victory-sound-clip.wav');
+            victoryAudio.volume = '0.03';
+            victoryAudio.play();
             clickedOnce = true;
           }
         });
@@ -893,9 +893,8 @@ function checkTwoPlayerWinner() {
       allBoxes.forEach((box) => {
         box.classList.add('tie');
       });
-      const audio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-      audio.volume = '0.2';
-      audio.play();
+      twoPlayerDrawAudio.volume = '0.2';
+      twoPlayerDrawAudio.play();
       clearTimeout(clearAll);
       clearTimeout(resetStyles);
       if (box.classList.contains('tie')) {
@@ -914,10 +913,24 @@ function checkTwoPlayerWinner() {
 
           restartButton.addEventListener('click', () => {
             clearTimeout(tieTimeout);
+            box.classList.remove('tie');
+            box.innerHTML = '';
+            userComputer.style.opacity = '0.4';
+            userPlayer.style.transition = '0.5s';
+            userPlayer.style.opacity = '1';
+            firstTurn = false;
+            clickedOnce = false;
+          });
 
-            userContainer.addEventListener('click', () => {
-              clearTimeout(tieTimeout);
-            });
+          userContainer.addEventListener('click', () => {
+            clearTimeout(tieTimeout);
+            box.classList.remove('tie');
+            box.innerHTML = '';
+            firstTurn = false;
+            clickedOnce = false;
+            if (box.classList.contains('tie')) {
+              twoPlayerMode = false;
+            }
           });
         });
       }
