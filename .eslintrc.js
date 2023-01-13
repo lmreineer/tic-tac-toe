@@ -12,6 +12,5 @@ module.exports = {
   },
   rules: {
     // toggle linting
-    indent: false,
   },
 };

@@ -1,14 +1,6 @@
-// needs the bugs to be fixed
-// the bug is perhaps coming from the restart button,
-// it marks out two boxes unless you choose a box that is
-// not a part of a prediction system
-// there's also a bug where when you put three marks on specific corners
-// and when gameOver happens
-
 const userContainer = document.querySelector('.user-container');
 const userPlayer = document.querySelector('.user-player');
 const userComputer = document.querySelector('.user-computer');
-const spanComputer = document.querySelector('.span-computer');
 const normalImage = document.querySelector('.normal-image');
 const hoverImage = document.querySelector('.hover-image');
 const allBoxes = document.querySelectorAll('.text');
@@ -752,6 +744,7 @@ function checkWinner() {
           }
         });
       }, 3100);
+
       const blinkBox = document.querySelectorAll('.blink');
       const reduceTextOpac = document.querySelectorAll('.text');
       allBoxes.forEach((box) => {
@@ -903,19 +896,31 @@ function checkTwoPlayerWinner() {
       const audio = new Audio('./res/sound-clips/draw-sound-clip.wav');
       audio.volume = '0.2';
       audio.play();
-      clickedOnce = true;
       clearTimeout(clearAll);
       clearTimeout(resetStyles);
-      var tieTimeout = setTimeout(() => {
+      if (box.classList.contains('tie')) {
+        clickedOnce = true;
         allBoxes.forEach((box) => {
-          box.classList.remove('tie');
-          box.innerHTML = '';
-          userComputer.style.opacity = '0.4';
-          userPlayer.style.transition = '0.5s';
-          userPlayer.style.opacity = '1';
-          firstTurn = false;
+          twoPlayerMode = true;
+          const tieTimeout = setTimeout(() => {
+            box.classList.remove('tie');
+            box.innerHTML = '';
+            userComputer.style.opacity = '0.4';
+            userPlayer.style.transition = '0.5s';
+            userPlayer.style.opacity = '1';
+            firstTurn = false;
+            clickedOnce = false;
+          }, 3200);
+
+          restartButton.addEventListener('click', () => {
+            clearTimeout(tieTimeout);
+
+            userContainer.addEventListener('click', () => {
+              clearTimeout(tieTimeout);
+            });
+          });
         });
-      }, 3200);
+      }
     }
 
     const blinkBox = document.querySelectorAll('.blink');
@@ -934,7 +939,6 @@ function checkTwoPlayerWinner() {
         box.innerHTML = '';
         clearTimeout(clearAll);
         clearTimeout(resetStyles);
-        clearTimeout(tieTimeout);
       });
       restartClicked = true;
       win = false;
@@ -953,7 +957,6 @@ function checkTwoPlayerWinner() {
         box.innerHTML = '';
         clearTimeout(clearAll);
         clearTimeout(resetStyles);
-        clearTimeout(tieTimeout);
       });
       restartClicked = true;
       stopMarks = false;
