@@ -582,11 +582,9 @@ function predictMarksForO() {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
-                  userComputer.style.opacity = '0.4';
-                  userPlayer.style.transition = '0.5s';
+                  userComputer.style.transition = '0.2s';
+                  userComputer.style.opacity = '1';
                   userPlayer.style.opacity = '1';
-                  firstTurn = false;
-                  clickedOnce = false;
                 });
               });
 
@@ -594,11 +592,9 @@ function predictMarksForO() {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
-
-                  clickedOnce = false;
-                  if (box.classList.contains('tie')) {
-                    twoPlayerMode = false;
-                  }
+                  userComputer.style.transition = '0.2s';
+                  userComputer.style.opacity = '1';
+                  userPlayer.style.opacity = '1';
                 });
               });
             });
