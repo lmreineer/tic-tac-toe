@@ -582,6 +582,11 @@ function predictMarksForO() {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
+                  userComputer.style.opacity = '0.4';
+                  userPlayer.style.transition = '0.5s';
+                  userPlayer.style.opacity = '1';
+                  firstTurn = false;
+                  clickedOnce = false;
                 });
               });
 
@@ -589,6 +594,11 @@ function predictMarksForO() {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
+
+                  clickedOnce = false;
+                  if (box.classList.contains('tie')) {
+                    twoPlayerMode = false;
+                  }
                 });
               });
             });
@@ -616,7 +626,6 @@ function markX(box) {
 }
 
 let win = false;
-let clickedOnce = false;
 
 function checkWinner() {
   allBoxes.forEach((box) => {
@@ -848,6 +857,9 @@ function secondPlayer(e) {
   });
 }
 
+let firstTurn = false;
+let clickedOnce = false;
+
 function checkTwoPlayerWinner() {
   allBoxes.forEach((box) => {
     if (box.classList.contains('blink')) {
@@ -886,7 +898,7 @@ function checkTwoPlayerWinner() {
         box.classList.add('tie');
       });
       const twoPlayerDrawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-      twoPlayerDrawAudio.volume = '0.2';
+      twoPlayerDrawAudio.volume = '0.8';
       twoPlayerDrawAudio.play();
       clearTimeout(clearAll);
       clearTimeout(resetStyles);
@@ -970,8 +982,6 @@ function checkTwoPlayerWinner() {
     });
   });
 }
-
-let firstTurn = false;
 
 function turnFunction(e) {
   allBoxes.forEach(() => {
