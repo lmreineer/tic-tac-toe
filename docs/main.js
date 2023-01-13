@@ -570,14 +570,28 @@ function predictMarksForO() {
             allBoxes.forEach((box) => {
               box.classList.remove('oActive');
               box.classList.add('tie');
-              setTimeout(() => {
+              const singlePlayerTimeout = setTimeout(() => {
                 box.classList.remove('tie');
                 box.innerHTML = '';
               }, 3100);
+              const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
+              drawAudio.volume = '0.04';
+              drawAudio.play();
+
+              restartButton.addEventListener('click', () => {
+                allBoxes.forEach((box) => {
+                  box.classList.remove('tie');
+                  clearTimeout(singlePlayerTimeout);
+                });
+              });
+
+              userContainer.addEventListener('click', () => {
+                allBoxes.forEach((box) => {
+                  box.classList.remove('tie');
+                  clearTimeout(singlePlayerTimeout);
+                });
+              });
             });
-            const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-            drawAudio.volume = '0.3';
-            drawAudio.play();
           }
         }
       });
@@ -717,6 +731,7 @@ function checkWinner() {
           }
         });
       });
+
       var resetStyles = setTimeout(() => {
         if (restartClicked === false) {
           blinkBox.forEach((blink) => {
@@ -749,27 +764,6 @@ function checkWinner() {
 
       const blinkBox = document.querySelectorAll('.blink');
       const reduceTextOpac = document.querySelectorAll('.text');
-      allBoxes.forEach((box) => {
-        box.classList.add('clear');
-      });
-      // const clickRestart = document.querySelectorAll('.clear');
-      // clickRestart.forEach((restart) => {
-      //   restart.addEventListener('click', () => {
-      //       if (win === true) {
-      //         allBoxes.forEach((box) => {
-      //           if (box.classList.contains('blink')) {
-      //             clickRestart.forEach((restart) => {
-      //               restart.innerHTML = '';
-      //               restart.classList.remove('blink');
-      //               restart.classList.add('text');
-      //             });
-      //             stopMarks = false;
-      //             win = false;
-      //           }
-      //         });
-      //       }
-      //   });
-      // });
       restartButton.addEventListener('click', () => {
         blinkBox.forEach((blink) => {
           blink.classList.add('text');
@@ -804,10 +798,6 @@ function checkWinner() {
         restartClicked = true;
         win = false;
         clickedOnce = false;
-      });
-    } else if (win === false) {
-      allBoxes.forEach((box) => {
-        box.classList.remove('clear');
       });
     }
   });
