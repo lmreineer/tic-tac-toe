@@ -570,21 +570,19 @@ function predictMarksForO() {
             allBoxes.forEach((box) => {
               box.classList.remove('oActive');
               box.classList.add('tie');
+            });
               const singlePlayerTimeout = setTimeout(() => {
                 box.classList.remove('tie');
                 box.innerHTML = '';
               }, 3100);
               const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
-              drawAudio.volume = '0.04';
+              drawAudio.volume = '0.2';
               drawAudio.play();
 
               restartButton.addEventListener('click', () => {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
-                  userComputer.style.transition = '0.2s';
-                  userComputer.style.opacity = '1';
-                  userPlayer.style.opacity = '1';
                 });
               });
 
@@ -592,12 +590,8 @@ function predictMarksForO() {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
-                  userComputer.style.transition = '0.2s';
-                  userComputer.style.opacity = '1';
-                  userPlayer.style.opacity = '1';
                 });
               });
-            });
           }
         }
       });
