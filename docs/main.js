@@ -568,7 +568,6 @@ function predictMarksForO() {
           if (checkMarkXLength.length === 5
             && win === false) {
             allBoxes.forEach((box) => {
-              box.classList.remove('oActive');
               box.classList.add('tie');
             });
               const singlePlayerTimeout = setTimeout(() => {
@@ -578,19 +577,25 @@ function predictMarksForO() {
               const drawAudio = new Audio('./res/sound-clips/draw-sound-clip.wav');
               drawAudio.volume = '0.2';
               drawAudio.play();
-
+              
               restartButton.addEventListener('click', () => {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
                 });
               });
-
+              
               userContainer.addEventListener('click', () => {
                 allBoxes.forEach((box) => {
                   box.classList.remove('tie');
                   clearTimeout(singlePlayerTimeout);
                 });
+              });
+
+              allBoxes.forEach((box) => {
+                if (box.classList.contains('tie')) {
+                  box.classList.remove('oActive');
+                }
               });
           }
         }
