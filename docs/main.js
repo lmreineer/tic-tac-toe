@@ -19,16 +19,16 @@ let stopMarks = false;
 
 userContainer.addEventListener('click', () => {
   if (twoPlayerMode === false) {
-    normalImage.src = './res/two-player.png';
-    hoverImage.src = './res/two-player-hover.png';
+    normalImage.src = './res/images/two-player.png';
+    hoverImage.src = './res/images/two-player-hover.png';
     userContainer.childNodes[1].innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)';
     userContainer.childNodes[3].innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)';
     userComputer.style.transition = '0.2s';
     userComputer.style.opacity = '0.5';
     twoPlayerMode = true;
   } else if (twoPlayerMode === true) {
-    normalImage.src = './res/single-player.png';
-    hoverImage.src = './res/single-player-hover.png';
+    normalImage.src = './res/images/single-player.png';
+    hoverImage.src = './res/images/single-player-hover.png';
     userContainer.childNodes[1].innerHTML = 'Player &nbsp(<span class="span-player">X</span>)';
     userContainer.childNodes[3].innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)';
     userComputer.style.transition = '0.2s';
