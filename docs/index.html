@@ -8,8 +8,9 @@
     <title>Tic-tac-toe</title>
     <link rel="shortcut icon" href="./favicon/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="default.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://randojs.com/2.0.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+        integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="main.js" defer></script>
     <audio preload="auto" src="./res/sound-clips/draw-sound-clip.wav"></audio>
     <audio preload="auto" src="./res/sound-clips/victory-sound-clip.wav"></audio>
@@ -18,47 +19,46 @@
 <body>
     <div class="container">
         <div class="user-container">
-            <p class="user-text user-player">Player &nbsp;(<span class="span-player">X</span>)</p>
-            <p class="user-text user-computer">Computer &nbsp;(<span class="span-computer">O</span>)</p>
-            <img src="./res/images/single-player.png" alt="Singe-player" class="normal-image">
-            <img src="./res/images/single-player-hover.png" alt="Two-player" class="hover-image">
+            <p class="user-text player-user">Player &nbsp;(<span class="span-player">X</span>)</p>
+            <p class="user-text computer-user">Computer &nbsp;(<span class="span-computer">O</span>)</p>
+            <img src="./res/images/single-player.png" class="standard-image">
+            <img src="./res/images/single-player-hover.png" class="hover-image">
         </div>
 
-        <!-- 'comp' class for the replacement of class of computer -->
         <div class="board-container">
             <div class="in-cont left-board-container">
                 <div class="right border"></a>
-                    <div class="up-left comp text"></div>
+                    <div class="up-left text"></div>
                 </div>
                 <div class="top-right-bottom border">
-                    <div class="mid-left comp text"></div>
+                    <div class="mid-left text"></div>
                 </div>
                 <div class="right border">
-                    <div class="bot-left comp text"></div>
+                    <div class="bot-left text"></div>
                 </div>
             </div>
 
             <div class="in-cont mid-board-container">
                 <div class="right border">
-                    <div class="up-mid comp text"></div>
+                    <div class="up-mid text"></div>
                 </div>
                 <div class="center-border border">
-                    <div class="center comp text"></div>
+                    <div class="center text"></div>
                 </div>
                 <div class="right border">
-                    <div class="bot-mid comp text"></div>
+                    <div class="bot-mid text"></div>
                 </div>
             </div>
 
             <div class="in-cont right-board-container">
                 <div class="add-on border">
-                    <div class="up-right comp text"></div>
+                    <div class="up-right text"></div>
                 </div>
                 <div class="top-bottom border">
-                    <div class="mid-right comp text"></div>
+                    <div class="mid-right text"></div>
                 </div>
                 <div class="top border">
-                    <div class="bot-right comp text"></div>
+                    <div class="bot-right text"></div>
                 </div>
             </div>
         </div>

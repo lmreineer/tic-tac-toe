@@ -46,18 +46,16 @@ body {
     user-select: none;
 }
 
-.user-container > img {
+.user-container>img {
     width: 4rem;
 }
 
 .hover-image,
-.user-container:hover
-.normal-image {
+.user-container:hover .standard-image {
     display: none;
 }
 
-.user-container:hover
-.hover-image {
+.user-container:hover .hover-image {
     display: inline;
 }
 
@@ -83,7 +81,7 @@ body {
 }
 
 /* 'in-cont' is the container of the borders */
-.in-cont > div,
+.in-cont>div,
 .text {
     width: 12rem;
     height: 12rem;
@@ -98,23 +96,23 @@ body {
     transition: none;
 }
 
-.in-cont > .center-border {
+.in-cont>.center-border {
     border-top: 3px solid var(--border-color, gray);
     border-right: 3px solid var(--border-color, gray);
     border-bottom: 3px solid var(--border-color, gray);
 }
 
-.in-cont > .right {
+.in-cont>.right {
     border-right: 3px solid var(--border-color, gray);
 }
 
-.in-cont > .top-right-bottom {
+.in-cont>.top-right-bottom {
     border-top: 3px solid var(--border-color, gray);
     border-right: 3px solid var(--border-color, gray);
     border-bottom: 3px solid var(--border-color, gray);
 }
 
-.in-cont > .top-bottom {
+.in-cont>.top-bottom {
     border-top: 3px solid var(--border-color, gray);
     border-bottom: 3px solid var(--border-color, gray);
 }
@@ -124,7 +122,7 @@ body {
     justify-content: center;
 }
 
-.restart-container > button {
+.restart-container>button {
     cursor: pointer;
     width: 13rem;
     height: 4rem;
@@ -139,7 +137,7 @@ body {
     box-shadow: 0 1px 1px 0.5px var(--button-txt-shadow-color, darkgray);
 }
 
-.restart-container > button:active {
+.restart-container>button:active {
     box-shadow: 0 0 13px 0 #5E5E5D inset;
     transform: translateY(2px);
     transition: 0.02s;
@@ -152,7 +150,7 @@ body {
 }
 
 .user-container,
-.restart-container > button {
+.restart-container>button {
     font-family: 'Pathway Gothic One', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -172,16 +170,17 @@ body {
     }
 }
 
-@media only screen and (max-width: 600px), (max-height: 750px) {
+@media only screen and (max-width: 600px),
+(max-height: 750px) {
     .user-container {
         font-size: 2rem;
     }
 
-    .user-container > img {
+    .user-container>img {
         width: 3rem;
     }
 
-    .in-cont > div,
+    .in-cont>div,
     .text {
         width: 8rem;
         height: 8rem;
@@ -190,7 +189,7 @@ body {
         font-size: 6rem;
     }
 
-    .restart-container > button {
+    .restart-container>button {
         width: 11rem;
         height: 4rem;
         font-size: 2rem;
@@ -202,11 +201,11 @@ body {
         font-size: 1rem;
     }
 
-    .user-container > img {
+    .user-container>img {
         width: 2rem;
     }
 
-    .in-cont > div,
+    .in-cont>div,
     .text {
         width: 6rem;
         height: 6rem;
@@ -215,7 +214,7 @@ body {
         font-size: 4rem;
     }
 
-    .restart-container > button {
+    .restart-container>button {
         width: 7rem;
         height: 2rem;
         font-size: 1rem;

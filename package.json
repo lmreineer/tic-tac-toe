@@ -1,17 +1,27 @@
 {
-  "name": "github-repos",
+  "name": "tic-tac-toe",
   "version": "1.0.0",
   "description": "",
-  "main": "./docs/marksAnimation.js",
+  "main": "./docs/main.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmreineer/tic-tac-toe.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lmreineer/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/lmreineer/tic-tac-toe#readme",
   "devDependencies": {
+    "eslint": "^8.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.6.0",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-import": "^2.27.4"
   }
 }
