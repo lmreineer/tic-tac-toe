@@ -16,7 +16,107 @@ const playerUser = document.querySelector('.player-user');
 const computerUser = document.querySelector('.computer-user');
 const standardImage = document.querySelector('.standard-image');
 
-userContainer.addEventListener('click', () => {
+const box = document.querySelectorAll('.text');
+const gameBoard = Array(9).fill(null);
+const border = document.querySelectorAll('.border');
+
+// enable waiting for turns
+let clickDisabled = false;
+let twoPlayerMode = false;
+let resetTime;
+let generateO;
+let counter = 0;
+let X = 'X';
+const O = 'O';
+
+// audios
+const victorySound = new Audio('./res/sound-clips/victory-sound-clip.wav');
+victorySound.preload = 'auto';
+victorySound.volume = '0.5';
+const drawSound = new Audio('./res/sound-clips/draw-sound-clip.wav');
+drawSound.preload = 'auto';
+
+const winningCombinations = [[0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+function checkWinner() {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const [a, b, c] of winningCombinations) {
+    if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[b] === gameBoard[c]) {
+      return gameBoard[a];
+    }
+  }
+
+  if ([...box].every((el) => el.innerText.length > 0)) {
+    // animate automatically
+    box.forEach((b) => {
+      b.classList.add('blink');
+    });
+    drawSound.play();
+    return 'draw';
+  }
+
+  return null;
+}
+
+function changeVisualPlayer() {
+  if (X !== 'X') {
+    playerUser.style.transition = '0.1s';
+    playerUser.style.opacity = '0.5';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '1';
+  } else {
+    playerUser.style.transition = '0.1s';
+    playerUser.style.opacity = '1';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '0.5';
+  }
+
+  if (checkWinner() === 'draw') {
+    playerUser.style.transition = '0.1s';
+    playerUser.style.opacity = '0.5';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '0.5';
+  }
+}
+
+function resetGame() {
+  for (let j = 0; j < box.length; j += 1) {
+    box[j].classList.remove('blink');
+    box[j].innerText = '';
+    gameBoard[j] = null;
+    border.forEach((text) => {
+      text.querySelectorAll(':not(.blink)').forEach((out) => {
+        const nonBlink = out;
+        nonBlink.classList.remove('non-blink');
+      });
+    });
+  }
+  clearTimeout(resetTime);
+  clearTimeout(generateO);
+  // start being x again
+  X = 'X';
+  clickDisabled = false;
+
+  if (twoPlayerMode === true) {
+    changeVisualPlayer();
+  }
+}
+
+function changeMode() {
+  resetGame();
+  // toggle modes
+  twoPlayerMode = !twoPlayerMode;
+}
+
+function changeContainerStyles() {
   standardImage.classList.toggle('two-player');
   if (standardImage.classList.contains('two-player')) {
     standardImage.src = './res/images/two-player.png';
@@ -34,47 +134,14 @@ userContainer.addEventListener('click', () => {
     computerUser.style.opacity = '1';
     playerUser.style.opacity = '1';
   }
-});
-
-const box = document.querySelectorAll('.text');
-const X = 'X';
-const O = 'O';
-const gameBoard = Array(9).fill(null);
-
-// enable turns
-let clickDisabled = false;
-
-const winningCombinations = [[0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
-
-function checkWinner() {
-  for (let i = 0; i < winningCombinations.length; i += 1) {
-    const [a, b, c] = winningCombinations[i];
-    if (gameBoard[a]
-      && gameBoard[a] === gameBoard[b]
-      && gameBoard[b] === gameBoard[c]) {
-      return gameBoard[a];
-    }
-  }
-  return null;
 }
 
-const levels = [2, 6, 8];
-const randomLevels = levels[Math.floor(Math.random() * levels.length)];
-const maxDepth = randomLevels;
+userContainer.addEventListener('click', () => {
+  changeContainerStyles();
+  changeMode();
+});
 
 function minimax(board, depth, isMaximizing) {
-  if (depth === maxDepth) {
-    return 0;
-  }
-
   const winner = checkWinner();
   if (winner) {
     return winner === X ? -10 + depth : 10 - depth;
@@ -102,9 +169,6 @@ function minimax(board, depth, isMaximizing) {
   return bestValue;
 }
 
-// do not repeat clicks on marked boxes
-let removeClass = false;
-
 // animation functions
 function xAnimation() {
   anime({
@@ -124,26 +188,51 @@ function oAnimation() {
   });
 }
 
-function boxClickHandler(index) {
-  if (gameBoard[index] === 'X' || gameBoard[index] === 'O') {
-    removeClass = true;
-  } else {
-    removeClass = false;
-  }
+function animateWinner() {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const combination of winningCombinations) {
+    const elements = combination.map((index) => box[index]);
 
+    if (elements[0].innerText === elements[1].innerText
+      && elements[1].innerText === elements[2].innerText
+      && elements[0].innerText !== '') {
+      elements.forEach((element) => element.classList.add('blink'));
+      border.forEach((text) => {
+        text.querySelectorAll(':not(.blink)').forEach((out) => {
+          const nonBlink = out;
+          nonBlink.classList.add('non-blink');
+        });
+      });
+      victorySound.play();
+      if (counter === 0) {
+        resetTime = setTimeout(() => {
+          resetGame();
+        }, 3100);
+      }
+      return true;
+    }
+  }
+  return false;
+}
+
+// random depth levels
+const randomLevels = [2, 6, 8][Math.floor(Math.random() * 3)];
+const maxDepth = randomLevels;
+
+function computerMode(index) {
   if (gameBoard[index] === null && clickDisabled === false) {
-    const winner = checkWinner();
-    if (winner === null) {
-      gameBoard[index] = X;
-      box[index].innerText = X;
-      clickDisabled = true;
-      setTimeout(() => {
+    //  x selection
+    gameBoard[index] = X;
+    box[index].innerText = X;
+    clickDisabled = true;
+    if (checkWinner() === null) {
+      generateO = setTimeout(() => {
         let bestMove = -1;
         let bestValue = -Infinity;
         for (let j = 0; j < gameBoard.length; j += 1) {
           if (!gameBoard[j]) {
             gameBoard[j] = O;
-            const value = minimax(gameBoard, 0, false);
+            const value = minimax(gameBoard, maxDepth, false);
             gameBoard[j] = null;
             if (value > bestValue) {
               bestValue = value;
@@ -157,60 +246,90 @@ function boxClickHandler(index) {
             box[i].classList.remove('oActive');
           }
         }
-
-        box.forEach((b) => {
-          // if is for stopping generation of O's when boxes are full
-          if (b.innerText === '') {
-            box[bestMove].classList.add('oActive');
-            gameBoard[bestMove] = O;
-            box[bestMove].innerText = O;
-          }
-
-          if (b.classList.contains('oActive')) {
-            const oActive = document.querySelector('.oActive');
-            oActive.classList.add('line');
-          }
-
-          const line = document.querySelectorAll('.line');
-          if (line.length >= 3 && checkWinner() === 'O') {
-            line.forEach((l) => {
-              l.classList.add('blink');
-              const compWins = setTimeout(() => {
-                l.classList.remove('blink');
-              }, 3000);
-
-              if (l.classList.contains('blink')) {
-                b.addEventListener('click', () => {
-                  clearTimeout(compWins);
-                });
-              }
-            });
-          }
-        });
+        box[bestMove].classList.add('oActive');
+        gameBoard[bestMove] = O;
+        box[bestMove].innerText = O;
 
         oAnimation();
+        animateWinner();
         clickDisabled = false;
       }, 500);
     }
   }
 }
 
-for (let i = 0; i < box.length; i += 1) {
-  box[i].addEventListener('click', () => {
-    boxClickHandler(i);
+function playerMode(index) {
+  if (gameBoard[index] !== 'X' && gameBoard[index] !== 'O') {
+    gameBoard[index] = X;
+    box[index].innerText = X;
+    // switch turns
+    X = X === 'X' ? 'O' : 'X';
+  }
+  changeVisualPlayer();
+}
 
-    if (checkWinner()) {
-      for (let j = 0; j < box.length; j += 1) {
-        box[j].classList.remove('blink');
-        box[j].innerText = '';
-        gameBoard[j] = null;
+let removeClass = false;
+
+function disableRepeat(i) {
+  if (gameBoard[i] === 'X' || gameBoard[i] === 'O') {
+    removeClass = true;
+  } else {
+    removeClass = false;
+  }
+}
+
+function checkPlayerMode(i) {
+  if (twoPlayerMode === true) {
+    return playerMode(i);
+  }
+  return computerMode(i);
+}
+
+function clickCounter() {
+  counter += 1;
+  if (counter === 2) {
+    resetGame();
+    counter = 0;
+  } else if (counter === 1) {
+    animateWinner();
+    resetTime = setTimeout(() => {
+      resetGame();
+    }, 3100);
+  }
+}
+
+function clickReset() {
+  if (checkWinner() !== null) {
+    // if x or draw
+    if (checkWinner() !== 'O') {
+      clickCounter();
+    } else if (checkWinner() === 'O') {
+      if (twoPlayerMode === false) {
+        resetGame();
+      } else {
+        clickCounter();
       }
     }
+  }
+}
+
+for (let i = 0; i < box.length; i += 1) {
+  // eslint-disable-next-line no-loop-func
+  box[i].addEventListener('click', () => {
+    // disables repeating animation on already marked boxes when clicked
+    disableRepeat(i);
+
+    if (checkWinner() === null) {
+      checkPlayerMode(i);
+    }
+
+    // functions for x, draw, and two-player o
+    clickReset();
   });
 }
 
 box.forEach((b) => {
-  // animation implementation for player / do not repeat clicks on marked boxes
+  // animation implementation for player / disable repeat clicks on already marked boxes
   b.addEventListener('click', () => {
     for (let i = 0; i < box.length; i += 1) {
       if (box[i].classList.contains('xActive')) {
@@ -227,4 +346,10 @@ box.forEach((b) => {
       xAnimation();
     }
   });
+});
+
+const restartButton = document.querySelector('.restart-button');
+
+restartButton.addEventListener('click', () => {
+  resetGame();
 });

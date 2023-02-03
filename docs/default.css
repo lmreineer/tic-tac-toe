@@ -159,9 +159,13 @@ body {
     text-transform: uppercase;
 }
 
-.blink,
-.tie {
+.blink {
     animation: blink 0.35s linear infinite;
+}
+
+.non-blink {
+    transition: 0.3s;
+    opacity: 0.5;
 }
 
 @keyframes blink {
