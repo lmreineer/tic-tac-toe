@@ -137,8 +137,8 @@ function changeContainerStyles() {
 }
 
 userContainer.addEventListener('click', () => {
-  changeContainerStyles();
   changeMode();
+  changeContainerStyles();
 });
 
 function minimax(board, depth, isMaximizing) {
