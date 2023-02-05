@@ -1,35 +1,14 @@
-// for animejs functions:
-/* eslint-disable no-undef */
-const hoverImage = document.querySelector('.hover-image');
+/* eslint-disable import/no-mutable-exports */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable import/extensions */
+import {
+  changeVisualPlayer,
+  changeVisualMode,
+  xAnimation,
+  oAnimation,
+} from './animations.js';
 
-hoverImage.addEventListener('mouseover', () => {
-  hoverImage.style.transition = '0.1s';
-  hoverImage.style.opacity = '0.8';
-});
-
-hoverImage.addEventListener('mouseout', () => {
-  hoverImage.style.opacity = '1';
-});
-
-const userContainer = document.querySelector('.user-container');
-const playerUser = document.querySelector('.player-user');
-const computerUser = document.querySelector('.computer-user');
-const standardImage = document.querySelector('.standard-image');
-
-const box = document.querySelectorAll('.text');
-const gameBoard = Array(9).fill(null);
-const border = document.querySelectorAll('.border');
-
-// enable waiting for turns
-let clickDisabled = false;
-let twoPlayerMode = false;
-let resetTime;
-let generateO;
-let counter = 0;
-let X = 'X';
-const O = 'O';
-
-// audios
+// audio variables
 const victorySound = new Audio('./res/sound-clips/victory-sound-clip.wav');
 victorySound.preload = 'auto';
 victorySound.volume = '0.5';
@@ -45,6 +24,9 @@ const winningCombinations = [[0, 1, 2],
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+const box = document.querySelectorAll('.text');
+const gameBoard = Array(9).fill(null);
 
 function checkWinner() {
   // eslint-disable-next-line no-restricted-syntax
@@ -66,26 +48,15 @@ function checkWinner() {
   return null;
 }
 
-function changeVisualPlayer() {
-  if (X !== 'X') {
-    playerUser.style.transition = '0.1s';
-    playerUser.style.opacity = '0.5';
-    computerUser.style.transition = '0.1s';
-    computerUser.style.opacity = '1';
-  } else {
-    playerUser.style.transition = '0.1s';
-    playerUser.style.opacity = '1';
-    computerUser.style.transition = '0.1s';
-    computerUser.style.opacity = '0.5';
-  }
+let twoPlayerMode = false;
+let resetTime;
+let generateO;
+// enable waiting for turns
+let clickDisabled = false;
 
-  if (checkWinner() === 'draw') {
-    playerUser.style.transition = '0.1s';
-    playerUser.style.opacity = '0.5';
-    computerUser.style.transition = '0.1s';
-    computerUser.style.opacity = '0.5';
-  }
-}
+const border = document.querySelectorAll('.border');
+const O = 'O';
+let X = 'X';
 
 function resetGame() {
   for (let j = 0; j < box.length; j += 1) {
@@ -116,29 +87,11 @@ function changeMode() {
   twoPlayerMode = !twoPlayerMode;
 }
 
-function changeContainerStyles() {
-  standardImage.classList.toggle('two-player');
-  if (standardImage.classList.contains('two-player')) {
-    standardImage.src = './res/images/two-player.png';
-    hoverImage.src = './res/images/two-player-hover.png';
-    playerUser.innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)';
-    computerUser.innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)';
-    computerUser.style.transition = '0.1s';
-    computerUser.style.opacity = '0.5';
-  } else {
-    standardImage.src = './res/images/single-player.png';
-    hoverImage.src = './res/images/single-player-hover.png';
-    playerUser.innerHTML = 'Player &nbsp(<span class="span-player">X</span>)';
-    computerUser.innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)';
-    computerUser.style.transition = '0.1s';
-    computerUser.style.opacity = '1';
-    playerUser.style.opacity = '1';
-  }
-}
+const userContainer = document.querySelector('.user-container');
 
 userContainer.addEventListener('click', () => {
   changeMode();
-  changeContainerStyles();
+  changeVisualMode();
 });
 
 function minimax(board, depth, isMaximizing) {
@@ -169,24 +122,7 @@ function minimax(board, depth, isMaximizing) {
   return bestValue;
 }
 
-// animation functions
-function xAnimation() {
-  anime({
-    targets: '.xActive',
-    scale: [1.2, 1],
-    easing: 'easeOutCirc',
-    duration: 200,
-  });
-}
-
-function oAnimation() {
-  anime({
-    targets: '.oActive',
-    scale: [1.2, 1],
-    easing: 'easeOutCirc',
-    duration: 200,
-  });
-}
+let counter = 0;
 
 function animateWinner() {
   // eslint-disable-next-line no-restricted-syntax
@@ -353,3 +289,8 @@ const restartButton = document.querySelector('.restart-button');
 restartButton.addEventListener('click', () => {
   resetGame();
 });
+
+export {
+  X,
+  checkWinner,
+};
