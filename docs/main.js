@@ -1,12 +1,37 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/no-mutable-exports */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/extensions */
-import {
-  changeVisualPlayer,
-  changeVisualMode,
-  xAnimation,
-  oAnimation,
-} from './animations.js';
+
+const hoverImage = document.querySelector('.hover-image');
+
+hoverImage.addEventListener('mouseover', () => {
+  hoverImage.style.transition = '0.1s';
+  hoverImage.style.opacity = '0.8';
+});
+
+hoverImage.addEventListener('mouseout', () => {
+  hoverImage.style.opacity = '1';
+});
+
+// marking animations
+function xAnimation() {
+  anime({
+    targets: '.xActive',
+    scale: [1.2, 1],
+    easing: 'easeOutCirc',
+    duration: 200,
+  });
+}
+
+function oAnimation() {
+  anime({
+    targets: '.oActive',
+    scale: [1.2, 1],
+    easing: 'easeOutCirc',
+    duration: 200,
+  });
+}
 
 // audio variables
 const victorySound = new Audio('./res/sound-clips/victory-sound-clip.wav');
@@ -57,6 +82,52 @@ let clickDisabled = false;
 const border = document.querySelectorAll('.border');
 const O = 'O';
 let X = 'X';
+
+const playerUser = document.querySelector('.player-user');
+const computerUser = document.querySelector('.computer-user');
+
+const standardImage = document.querySelector('.standard-image');
+
+function changeVisualMode() {
+  standardImage.classList.toggle('two-player');
+  if (standardImage.classList.contains('two-player')) {
+    standardImage.src = './res/images/two-player.png';
+    hoverImage.src = './res/images/two-player-hover.png';
+    playerUser.innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)';
+    computerUser.innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '0.5';
+  } else {
+    standardImage.src = './res/images/single-player.png';
+    hoverImage.src = './res/images/single-player-hover.png';
+    playerUser.innerHTML = 'Player &nbsp(<span class="span-player">X</span>)';
+    computerUser.innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '1';
+    playerUser.style.opacity = '1';
+  }
+}
+
+function changeVisualPlayer() {
+  if (X !== 'X') {
+    playerUser.style.transition = '0.1s';
+    playerUser.style.opacity = '0.5';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '1';
+  } else {
+    playerUser.style.transition = '0.1s';
+    playerUser.style.opacity = '1';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '0.5';
+  }
+
+  if (checkWinner() === 'draw') {
+    playerUser.style.transition = '0.1s';
+    playerUser.style.opacity = '0.5';
+    computerUser.style.transition = '0.1s';
+    computerUser.style.opacity = '0.5';
+  }
+}
 
 function resetGame() {
   for (let j = 0; j < box.length; j += 1) {
@@ -289,8 +360,3 @@ const restartButton = document.querySelector('.restart-button');
 restartButton.addEventListener('click', () => {
   resetGame();
 });
-
-export {
-  X,
-  checkWinner,
-};
