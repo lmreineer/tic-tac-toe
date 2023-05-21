@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-toe",
   "version": "1.0.0",
-  "description": "",
+  "description": "Demo: - https://lmreineer.github.io/tic-tac-toe/",
   "main": "./docs/main.js",
   "directories": {
     "doc": "docs"
@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/lmreineer/tic-tac-toe#readme",
   "devDependencies": {
-    "eslint": "^8.32.0",
+    "eslint": "^8.41.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.27.4"
+    "eslint-plugin-import": "^2.27.5"
   }
 }
