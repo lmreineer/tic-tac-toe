@@ -34,10 +34,10 @@ function oAnimation() {
 }
 
 // audio variables
-const victorySound = new Audio('./assets/sound-clips/victory-sound-clip.wav');
+const victorySound = new Audio('../assets/sound-clips/victory-sound-clip.wav');
 victorySound.preload = 'auto';
 victorySound.volume = '0.5';
-const drawSound = new Audio('./assets/sound-clips/draw-sound-clip.wav');
+const drawSound = new Audio('../assets/sound-clips/draw-sound-clip.wav');
 drawSound.preload = 'auto';
 
 const winningCombinations = [[0, 1, 2],
@@ -91,15 +91,15 @@ const standardImage = document.querySelector('.standard-image');
 function changeVisualMode() {
   standardImage.classList.toggle('two-player');
   if (standardImage.classList.contains('two-player')) {
-    standardImage.src = './assets/images/two-player.png';
-    hoverImage.src = './assets/images/two-player-hover.png';
+    standardImage.src = '../assets/images/two-player.png';
+    hoverImage.src = '../assets/images/two-player-hover.png';
     playerUser.innerHTML = 'Player 1 &nbsp(<span class="span-player">X</span>)';
     computerUser.innerHTML = 'Player 2 &nbsp(<span class="span-computer">O</span>)';
     computerUser.style.transition = '0.1s';
     computerUser.style.opacity = '0.5';
   } else {
-    standardImage.src = './assets/images/single-player.png';
-    hoverImage.src = './assets/images/single-player-hover.png';
+    standardImage.src = '../assets/images/single-player.png';
+    hoverImage.src = '../assets/images/single-player-hover.png';
     playerUser.innerHTML = 'Player &nbsp(<span class="span-player">X</span>)';
     computerUser.innerHTML = 'Computer &nbsp(<span class="span-computer">O</span>)';
     computerUser.style.transition = '0.1s';
