@@ -2,7 +2,7 @@
   "name": "tic-tac-toe",
   "version": "1.0.0",
   "description": "Demo: - https://lmreineer.github.io/tic-tac-toe/",
-  "main": "./docs/main.js",
+  "main": "src/js/main.js",
   "directories": {
     "doc": "docs"
   },
